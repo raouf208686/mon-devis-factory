@@ -77,6 +77,9 @@
         <div style="margin-bottom:15px; font-size:11px;">
             Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
         </div>
+<div style="margin-bottom:15px; font-size:11px;">
+    WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
+</div>
         <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
             <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
             <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
@@ -139,6 +142,7 @@
                 document.getElementById('base_p').value = database.config.base;
                 document.getElementById('etage_p').value = database.config.etage;
                 document.getElementById('shop_n_input').value = database.config.shopName;
+                document.getElementById('shop_wa_input').value = database.config.whatsapp;
             }
         } else {
             isAdmin = false;
@@ -216,6 +220,7 @@
         database.config.shopName = document.getElementById('shop_n_input').value;
         database.config.base = parseInt(document.getElementById('base_p').value) || 0;
         database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
+        database.config.whatsapp = document.getElementById('shop_wa_input').value;
         save(); render();
     }
 
