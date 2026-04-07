@@ -126,6 +126,12 @@
         sections: [
             {title: "Options de Base", isMultiple: false, items: [{n: "Classique", p: 0, s: true}]},
             {title: "Suppléments", isMultiple: true, items: [{n: "Premium", p: 500, s: false}]}
+// --- Ajout : Sécurité Date ---
+window.onload = function() {
+    const dateInput = document.getElementById('event-date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+};
         ],
         config: { shopName: "MA BOUTIQUE", base: 600, etage: 2000, whatsapp: "213550193993" }
     };
@@ -135,7 +141,7 @@
 
     function toggleAdmin() {
         if (!isAdmin) {
-            if (prompt("Code Sécurité Atelier :") === "1234") {
+            if (prompt("Code Sécurité Atelier :") === "4321") {
                 isAdmin = true;
                 document.getElementById('admin-panel').style.display = 'block';
                 document.getElementById('modeBtn').innerText = "✔️ Terminer";
@@ -235,22 +241,35 @@
     function deleteItem(sIdx, iIdx) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); }
     function save() { localStorage.setItem('nannyV_PRO_V4', JSON.stringify(database)); }
 
-    function sendWA() {
-        const dateInput = document.getElementById('event-date').value;
-        const formattedDate = dateInput ? new Date(dateInput).toLocaleDateString('fr-FR') : "Non spécifiée";
-
-        let msg = `*✨ DEVIS - ${database.config.shopName.toUpperCase()} ✨*\n\n`;
-        msg += `📅 *DATE* : ${formattedDate}\n`;
-        msg += `📏 *Format* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
-        
-        database.sections.forEach(sec => {
-            let sel = sec.items.filter(i => i.s).map(i => i.n);
-            if(sel.length) msg += `*${sec.title}* : ${sel.join(', ')}\n`;
-        });
-        
-        msg += `\n💰 *TOTAL : ${document.getElementById('total-display').innerText} DA*`;
-        window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
+   function sendWA() {
+    const dateInput = document.getElementById('event-date').value;
+    
+    // Vérification si la date est remplie
+    if(!dateInput) { 
+        alert("Veuillez choisir une date pour l'événement avant de commander."); 
+        return; 
     }
+
+    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    });
+
+    let msg = `*✨ NOUVELLE COMMANDE ✨*\n`;
+    msg += `*Boutique : ${database.config.shopName.toUpperCase()}*\n`;
+    msg += `------------------------------------------\n`;
+    msg += `📅 *ÉVÉNEMENT* : ${formattedDate}\n`;
+    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
+    
+    database.sections.forEach(sec => {
+        let sel = sec.items.filter(i => i.s).map(i => i.n);
+        if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
+    });
+    
+    msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
+    msg += `\n------------------------------------------`;
+    
+    window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
+}
     render();
 </script>
 </body>
