@@ -16,6 +16,8 @@
         }
 
         body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; transition: 0.4s; overflow-x: hidden; }
+        
+        /* OVERLAY BIENVENUE */
         .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; }
         .welcome-content { max-width: 400px; animation: fadeInUp 0.8s ease; }
         .welcome-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 15px; color: var(--accent); }
@@ -32,12 +34,14 @@
         .unit-price-tag { font-size: 9px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
         
         .option-card { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; background: var(--bg); transition: 0.3s; border: 1px solid transparent; }
+        .option-card:hover { border-color: var(--accent); box-shadow: 0 5px 15px rgba(212, 163, 115, 0.2); }
         .option-card.selected { background: var(--text); color: var(--card); border-color: var(--accent); transform: scale(1.02); }
         
         .footer-total { margin-top: 30px; padding: 30px; background: var(--text); border-radius: 30px; text-align: center; color: var(--card); }
         .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         
         .btn-wa { background: linear-gradient(45deg, #d4a373, #faedcd, #d4a373); background-size: 200% auto; color: var(--text); width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; transition: 0.5s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-wa:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
         
         input { background: transparent; color: var(--text); border: none; border-bottom: 1px solid var(--border); width: 100%; padding: 5px; font-weight: 700; text-align: center; }
         input[type="date"] { font-family: 'Montserrat', sans-serif; cursor: pointer; }
@@ -77,9 +81,9 @@
         <div style="margin-bottom:15px; font-size:11px;">
             Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
         </div>
-<div style="margin-bottom:15px; font-size:11px;">
-    WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
-</div>
+        <div style="margin-bottom:15px; font-size:11px;">
+            WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
+        </div>
         <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
             <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
             <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
@@ -122,26 +126,36 @@
 
 <script>
     let isAdmin = false;
+    
+    // Initialisation de la base de données
     let database = JSON.parse(localStorage.getItem('nannyV_PRO_V4')) || {
         sections: [
             {title: "Options de Base", isMultiple: false, items: [{n: "Classique", p: 0, s: true}]},
             {title: "Suppléments", isMultiple: true, items: [{n: "Premium", p: 500, s: false}]}
-// --- Ajout : Sécurité Date ---
-window.onload = function() {
-    const dateInput = document.getElementById('event-date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-};
         ],
         config: { shopName: "MA BOUTIQUE", base: 600, etage: 2000, whatsapp: "213550193993" }
     };
 
-    function closeWelcome() { document.getElementById('welcome-modal').style.opacity = '0'; setTimeout(() => document.getElementById('welcome-modal').style.display = 'none', 500); }
-    function toggleTheme() { document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; }
+    // --- Sécurité Date : Bloque les dates passées ---
+    window.onload = function() {
+        const dateInput = document.getElementById('event-date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+        render();
+    };
+
+    function closeWelcome() { 
+        document.getElementById('welcome-modal').style.opacity = '0'; 
+        setTimeout(() => document.getElementById('welcome-modal').style.display = 'none', 500); 
+    }
+
+    function toggleTheme() { 
+        document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; 
+    }
 
     function toggleAdmin() {
         if (!isAdmin) {
-            if (prompt("Code Sécurité Atelier :") === "4321") {
+            if (prompt("Code Sécurité Atelier :") === "1234") {
                 isAdmin = true;
                 document.getElementById('admin-panel').style.display = 'block';
                 document.getElementById('modeBtn').innerText = "✔️ Terminer";
@@ -241,36 +255,33 @@ window.onload = function() {
     function deleteItem(sIdx, iIdx) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); }
     function save() { localStorage.setItem('nannyV_PRO_V4', JSON.stringify(database)); }
 
-   function sendWA() {
-    const dateInput = document.getElementById('event-date').value;
-    
-    // Vérification si la date est remplie
-    if(!dateInput) { 
-        alert("Veuillez choisir une date pour l'événement avant de commander."); 
-        return; 
+    function sendWA() {
+        const dateInput = document.getElementById('event-date').value;
+        if(!dateInput) { 
+            alert("Veuillez choisir une date pour l'événement avant de commander."); 
+            return; 
+        }
+
+        const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+
+        let msg = `*✨ NOUVELLE COMMANDE ✨*\n`;
+        msg += `*Boutique : ${database.config.shopName.toUpperCase()}*\n`;
+        msg += `------------------------------------------\n`;
+        msg += `📅 *ÉVÉNEMENT* : ${formattedDate}\n`;
+        msg += `📏 *FORMAT* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
+        
+        database.sections.forEach(sec => {
+            let sel = sec.items.filter(i => i.s).map(i => i.n);
+            if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
+        });
+        
+        msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
+        msg += `\n------------------------------------------`;
+        
+        window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
     }
-
-    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-    });
-
-    let msg = `*✨ NOUVELLE COMMANDE ✨*\n`;
-    msg += `*Boutique : ${database.config.shopName.toUpperCase()}*\n`;
-    msg += `------------------------------------------\n`;
-    msg += `📅 *ÉVÉNEMENT* : ${formattedDate}\n`;
-    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
-    
-    database.sections.forEach(sec => {
-        let sel = sec.items.filter(i => i.s).map(i => i.n);
-        if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
-    });
-    
-    msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
-    msg += `\n------------------------------------------`;
-    
-    window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
-}
-    render();
 </script>
 </body>
 </html>
