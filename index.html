@@ -25,18 +25,8 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .app-container { width: 100%; max-width: 500px; background: var(--card); padding: 25px; border-radius: 35px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); position: relative; border: 1px solid var(--border); margin-bottom: 50px; }
-.app-container {
-    width: 92%; /* Pour laisser une petite marge sur mobile */
-    box-sizing: border-box; /* Crucial pour que le padding n'élargisse pas la boîte */
-}
         .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px double var(--border); padding-bottom: 15px; }
         .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; }
-<div class="header-title">
-    <img id="shop-logo" src="" style="max-width: 120px; margin-bottom: 15px; display: none; border-radius: 15px;">
-    
-    <h1 id="shop-name-display">MA BOUTIQUE</h1>
-    <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">L'ARTISANAT SUR-MESURE</p>
-</div>
         
         .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; }
         .unit-price-tag { font-size: 9px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
@@ -53,17 +43,6 @@
         input[type="date"] { font-family: 'Montserrat', sans-serif; cursor: pointer; }
 
         .admin-panel { display: none; margin-bottom: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 20px; background: #fffdf5; color: #4a0e2e; }
-<div id="admin-panel" class="admin-panel">
-    <p style="font-size:11px; font-weight:800; text-align:center;">✨ BIENVENUE CHEF ! (MODE ÉDITION)</p>
-    
-    <div style="margin-bottom:15px; font-size:11px;">
-        Lien du Logo (URL): <input type="text" id="logo_url_input" placeholder="https://..." oninput="updateConfig()" style="width: 70%;">
-    </div>
-
-    <div style="margin-bottom:15px; font-size:11px;">
-        Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
-    </div>
-    </div>
 
         .signature { text-align: center; margin-top: 30px; padding-bottom: 20px; font-size: 10px; opacity: 0.7; letter-spacing: 1px; }
         .signature a { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px solid var(--accent); }
@@ -97,9 +76,6 @@
         <p style="font-size:11px; font-weight:800; text-align:center;">✨ BIENVENUE CHEF ! (MODE ÉDITION)</p>
         <div style="margin-bottom:15px; font-size:11px;">
             Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
-<div style="margin-bottom:15px; font-size:11px;">
-    WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 60%;">
-</div>
         </div>
         <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
             <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
@@ -155,24 +131,22 @@
     function toggleTheme() { document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; }
 
     function toggleAdmin() {
-    if (!isAdmin) {
-        if (prompt("Code Sécurité Atelier :") === "1234") {
-            isAdmin = true;
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('modeBtn').innerText = "✔️ Terminer";
-            document.getElementById('base_p').value = database.config.base;
-            document.getElementById('etage_p').value = database.config.etage;
-            document.getElementById('shop_n_input').value = database.config.shopName;
-            // Ajoutez cette ligne :
-            document.getElementById('shop_wa_input').value = database.config.whatsapp; 
+        if (!isAdmin) {
+            if (prompt("Code Sécurité Atelier :") === "1234") {
+                isAdmin = true;
+                document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('modeBtn').innerText = "✔️ Terminer";
+                document.getElementById('base_p').value = database.config.base;
+                document.getElementById('etage_p').value = database.config.etage;
+                document.getElementById('shop_n_input').value = database.config.shopName;
+            }
+        } else {
+            isAdmin = false;
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('modeBtn').innerText = "⚙️ Atelier";
         }
-    } else {
-        isAdmin = false;
-        document.getElementById('admin-panel').style.display = 'none';
-        document.getElementById('modeBtn').innerText = "⚙️ Atelier";
+        render();
     }
-    render();
-}
 
     function render() {
         document.getElementById('shop-name-display').innerText = database.config.shopName;
@@ -239,14 +213,11 @@
     }
 
     function updateConfig() {
-    database.config.shopName = document.getElementById('shop_n_input').value;
-    database.config.base = parseInt(document.getElementById('base_p').value) || 0;
-    database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
-    // Ajoutez cette ligne :
-    database.config.whatsapp = document.getElementById('shop_wa_input').value; 
-    save(); 
-    render();
-}
+        database.config.shopName = document.getElementById('shop_n_input').value;
+        database.config.base = parseInt(document.getElementById('base_p').value) || 0;
+        database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
+        save(); render();
+    }
 
     function editItemPrice(sIdx, iIdx) {
         const newPrice = prompt("Nouveau prix :", database.sections[sIdx].items[iIdx].p);
