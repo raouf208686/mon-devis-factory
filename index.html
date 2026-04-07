@@ -16,7 +16,9 @@
         }
 
         body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; transition: 0.4s; overflow-x: hidden; }
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; }
+        
+        /* OVERLAY FIXE */
+        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 9999; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; opacity: 1; visibility: visible; }
         .welcome-content { max-width: 400px; animation: fadeInUp 0.8s ease; }
         .welcome-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 15px; color: var(--accent); }
         .welcome-content p { font-size: 14px; line-height: 1.6; opacity: 0.9; margin-bottom: 25px; }
@@ -37,7 +39,7 @@
         .footer-total { margin-top: 30px; padding: 30px; background: var(--text); border-radius: 30px; text-align: center; color: var(--card); }
         .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         
-        .btn-wa { background: linear-gradient(45deg, #d4a373, #faedcd, #d4a373); background-size: 200% auto; color: var(--text); width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; transition: 0.5s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-wa { background: linear-gradient(45deg, var(--accent), #faedcd, var(--accent)); background-size: 200% auto; color: var(--text); width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; transition: 0.5s; text-transform: uppercase; letter-spacing: 1px; }
         
         input { background: transparent; color: var(--text); border: none; border-bottom: 1px solid var(--border); width: 100%; padding: 5px; font-weight: 700; text-align: center; }
         input[type="date"] { font-family: 'Montserrat', sans-serif; cursor: pointer; }
@@ -72,37 +74,37 @@
         <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">L'ARTISANAT SUR-MESURE</p>
     </div>
 
-   <div id="admin-panel" class="admin-panel">
-    <p style="font-size:11px; font-weight:800; text-align:center;">✨ PERSONNALISATION VITRINE</p>
-    
-    <div style="margin-bottom:15px; font-size:11px;">
-        Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
-    </div>
+    <div id="admin-panel" class="admin-panel">
+        <p style="font-size:11px; font-weight:800; text-align:center;">✨ CONFIGURATION BOUTIQUE</p>
+        
+        <div style="margin-bottom:15px; font-size:11px;">
+            Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
+        </div>
 
-    <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:15px; background:#fff; padding:10px; border-radius:10px;">
-        <div style="text-align:center; flex:1;">
-            <small style="font-size:9px;">Fond</small><br>
-            <input type="color" id="col_bg" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
+        <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:15px; background:#fff; padding:10px; border-radius:10px; border:1px solid #eee;">
+            <div style="text-align:center; flex:1;">
+                <small style="font-size:9px; color:#4a0e2e;">Fond</small><br>
+                <input type="color" id="col_bg" oninput="updateConfig()" style="height:30px; width:100%; border:none; cursor:pointer;">
+            </div>
+            <div style="text-align:center; flex:1;">
+                <small style="font-size:9px; color:#4a0e2e;">Texte</small><br>
+                <input type="color" id="col_txt" oninput="updateConfig()" style="height:30px; width:100%; border:none; cursor:pointer;">
+            </div>
+            <div style="text-align:center; flex:1;">
+                <small style="font-size:9px; color:#4a0e2e;">Accent</small><br>
+                <input type="color" id="col_acc" oninput="updateConfig()" style="height:30px; width:100%; border:none; cursor:pointer;">
+            </div>
         </div>
-        <div style="text-align:center; flex:1;">
-            <small style="font-size:9px;">Texte</small><br>
-            <input type="color" id="col_txt" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
-        </div>
-        <div style="text-align:center; flex:1;">
-            <small style="font-size:9px;">Accent</small><br>
-            <input type="color" id="col_acc" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
-        </div>
-    </div>
 
-    <div style="margin-bottom:15px; font-size:11px;">
-        WhatsApp: <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
+        <div style="margin-bottom:15px; font-size:11px;">
+            WhatsApp: <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
+            <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
+            <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
+        </div>
+        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
     </div>
-    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
-        <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
-        <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
-    </div>
-    <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
-</div>
 
     <div class="section-box">
         <span style="font-size:12px; font-weight:700; color:var(--accent);">📐 DÉTAILS DU PROJET</span>
@@ -138,7 +140,6 @@
 </div>
 
 <script>
-   // --- Initialisation de la Base de Données ---
 let isAdmin = false;
 let database = JSON.parse(localStorage.getItem('nannyV_PRO_V4')) || {
     sections: [
@@ -150,40 +151,40 @@ let database = JSON.parse(localStorage.getItem('nannyV_PRO_V4')) || {
         base: 600, 
         etage: 2000, 
         whatsapp: "213550193993",
-        colors: { bg: "#fff5f8", text: "#4a0e2e", accent: "#d4a373" } // Valeurs par défaut
+        colors: { bg: "#fff5f8", text: "#4a0e2e", accent: "#d4a373" }
     }
 };
 
-// --- Fonctions d'Interface ---
 function closeWelcome() { 
     const modal = document.getElementById('welcome-modal');
     modal.style.opacity = '0'; 
+    modal.style.visibility = 'hidden';
     setTimeout(() => modal.style.display = 'none', 500); 
 }
 
 function toggleTheme() { 
     document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; 
+    applyColors();
 }
 
-// --- Logique Métier ---
+function applyColors() {
+    const root = document.documentElement;
+    const cols = database.config.colors || { bg: "#fff5f8", text: "#4a0e2e", accent: "#d4a373" };
+    root.style.setProperty('--bg', cols.bg);
+    root.style.setProperty('--text', cols.text);
+    root.style.setProperty('--accent', cols.accent);
+    root.style.setProperty('--border', cols.text + "15");
+}
+
 function calculate() {
-    const pInput = document.getElementById('parts');
-    const eInput = document.getElementById('etages');
-    
-    // Protection contre les valeurs négatives
-    const p = Math.max(0, parseInt(pInput.value) || 0);
-    const e = Math.max(1, parseInt(eInput.value) || 1);
-    
+    const p = Math.max(0, parseInt(document.getElementById('parts').value) || 0);
+    const e = Math.max(1, parseInt(document.getElementById('etages').value) || 1);
     document.getElementById('display-p-part').innerText = `${database.config.base} DA / unité`;
     document.getElementById('display-p-etage').innerText = `+${database.config.etage} DA / extra`;
-    
     let total = (p * database.config.base) + ((e - 1) * database.config.etage);
-    
     database.sections.forEach(sec => {
         sec.items.forEach(item => { if (item.s) total += item.p; });
     });
-
-    // Affichage formaté (ex: 15 000 DA)
     document.getElementById('total-display').innerText = new Intl.NumberFormat('fr-FR').format(total);
 }
 
@@ -192,15 +193,12 @@ function toggleItem(sIdx, iIdx) {
     if (sec.isMultiple) {
         sec.items[iIdx].s = !sec.items[iIdx].s;
     } else {
-        const wasSelected = sec.items[iIdx].s;
         sec.items.forEach(item => item.s = false);
-        sec.items[iIdx].s = !wasSelected;
+        sec.items[iIdx].s = true;
     }
-    save(); 
-    render();
+    save(); render();
 }
 
-// --- Administration ---
 function toggleAdmin() {
     if (!isAdmin) {
         if (prompt("Code Sécurité Atelier :") === "1234") {
@@ -222,10 +220,10 @@ function syncAdminInputs() {
     document.getElementById('etage_p').value = database.config.etage;
     document.getElementById('shop_n_input').value = database.config.shopName;
     document.getElementById('shop_wa_input').value = database.config.whatsapp;
-    // Sync les couleurs
-    document.getElementById('col_bg').value = database.config.colors.bg;
-    document.getElementById('col_txt').value = database.config.colors.text;
-    document.getElementById('col_acc').value = database.config.colors.accent;
+    const cols = database.config.colors;
+    document.getElementById('col_bg').value = cols.bg;
+    document.getElementById('col_txt').value = cols.text;
+    document.getElementById('col_acc').value = cols.accent;
 }
 
 function updateConfig() {
@@ -233,141 +231,79 @@ function updateConfig() {
     database.config.base = parseInt(document.getElementById('base_p').value) || 0;
     database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
     database.config.whatsapp = document.getElementById('shop_wa_input').value;
-    
-    // Sauvegarde des couleurs
     database.config.colors = {
         bg: document.getElementById('col_bg').value,
         text: document.getElementById('col_txt').value,
         accent: document.getElementById('col_acc').value
     };
-
-    applyColors(); // Appliquer les styles immédiatement
+    applyColors();
     save();
     document.getElementById('shop-name-display').innerText = database.config.shopName;
     calculate();
 }
 
-// Nouvelle fonction pour injecter les couleurs dans CSS
-function applyColors() {
-    const root = document.documentElement;
-    const cols = database.config.colors;
-    root.style.setProperty('--bg', cols.bg);
-    root.style.setProperty('--text', cols.text);
-    root.style.setProperty('--accent', cols.accent);
-    // On adapte la couleur de bordure pour qu'elle reste discrète
-    root.style.setProperty('--border', cols.text + "15"); 
-}
-
-// --- Rendu Dynamique ---
 function render() {
     document.getElementById('shop-name-display').innerText = database.config.shopName;
     const container = document.getElementById('dynamic-sections');
     container.innerHTML = '';
-    
     database.sections.forEach((sec, sIdx) => {
-        let html = `
-        <div class="section-box">
+        let html = `<div class="section-box">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                 <div>
                     <span style="font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase;">${sec.title}</span><br>
                     <span class="badge-mode">${sec.isMultiple ? 'SÉLECTION LIBRE' : 'CHOIX UNIQUE'}</span>
                 </div>
-                ${isAdmin ? `<div>
-                    <button onclick="toggleSecMode(${sIdx})" class="admin-btn-small">${sec.isMultiple ? 'Unique' : 'Libre'}</button>
-                    <button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold; margin-left:10px;">×</button>
-                </div>` : ''}
+                ${isAdmin ? `<div><button onclick="toggleSecMode(${sIdx})" class="admin-btn-small">${sec.isMultiple ? 'Unique' : 'Libre'}</button><button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold; margin-left:10px;">×</button></div>` : ''}
             </div>`;
-        
         sec.items.forEach((item, iIdx) => {
-            html += `
-            <div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
+            html += `<div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
                 <span>${item.n}</span>
                 <span style="display:flex; align-items:center;">
                     <span style="font-weight:700;">${item.p} DA</span>
-                    ${isAdmin ? `
-                        <button onclick="event.stopPropagation(); editItemPrice(${sIdx}, ${iIdx})" class="admin-btn-small">PRIX</button>
-                        <button onclick="event.stopPropagation(); deleteItem(${sIdx}, ${iIdx})" style="margin-left:5px; border:none; background:none; color:red; font-weight:bold; cursor:pointer;">×</button>
-                    ` : ''}
+                    ${isAdmin ? `<button onclick="event.stopPropagation(); editItemPrice(${sIdx}, ${iIdx})" class="admin-btn-small">PRIX</button><button onclick="event.stopPropagation(); deleteItem(${sIdx}, ${iIdx})" style="margin-left:5px; border:none; background:none; color:red; font-weight:bold; cursor:pointer;">×</button>` : ''}
                 </span>
             </div>`;
         });
-
-        if (isAdmin) {
-            html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); padding:8px; border-radius:10px; cursor:pointer; font-size:10px; margin-top:10px;">+ Ajouter Option</button>`;
-        }
+        if (isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); padding:8px; border-radius:10px; cursor:pointer; font-size:10px; margin-top:10px;">+ Ajouter Option</button>`;
         container.innerHTML += html + `</div>`;
     });
     calculate();
 }
 
-// --- WhatsApp & Export ---
 function sendWA() {
-    const dateInput = document.getElementById('event-date').value;
-    if(!dateInput) { 
-        alert("Veuillez choisir une date pour l'événement."); 
-        return; 
-    }
-
-    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-    });
-
-    let msg = `*✨ NOUVELLE COMMANDE ✨*\n`;
-    msg += `*Boutique : ${database.config.shopName.toUpperCase()}*\n`;
-    msg += `------------------------------------------\n`;
-    msg += `📅 *ÉVÉNEMENT* : ${formattedDate}\n`;
-    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
-    
+    const d = document.getElementById('event-date').value;
+    if(!d) { alert("Choisir une date !"); return; }
+    let msg = `*✨ COMMANDE : ${database.config.shopName.toUpperCase()}*\n📅 Date : ${d}\n📏 Format : ${document.getElementById('parts').value} unités\n`;
     database.sections.forEach(sec => {
         let sel = sec.items.filter(i => i.s).map(i => i.n);
         if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
     });
-    
-    msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
-    msg += `\n------------------------------------------`;
-    
+    msg += `\n💰 *TOTAL : ${document.getElementById('total-display').innerText} DA*`;
     window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
-// --- Helpers ---
 function save() { localStorage.setItem('nannyV_PRO_V4', JSON.stringify(database)); }
 function toggleSecMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
-function deleteCategory(idx) { if(confirm("Supprimer la section ?")) { database.sections.splice(idx, 1); save(); render(); } }
+function deleteCategory(idx) { if(confirm("Supprimer ?")) { database.sections.splice(idx, 1); save(); render(); } }
 function addItem(idx) { 
-    const n = prompt("Nom de l'option :"); 
-    const p = prompt("Prix (DA) :"); 
+    const n = prompt("Nom :"); const p = prompt("Prix :"); 
     if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } 
 }
 function deleteItem(sIdx, iIdx) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); }
 function editItemPrice(sIdx, iIdx) {
-    const newPrice = prompt("Nouveau prix :", database.sections[sIdx].items[iIdx].p);
-    if (newPrice !== null) { database.sections[sIdx].items[iIdx].p = parseInt(newPrice) || 0; save(); render(); }
+    const np = prompt("Prix :", database.sections[sIdx].items[iIdx].p);
+    if (np) { database.sections[sIdx].items[iIdx].p = parseInt(np) || 0; save(); render(); }
 }
 function addNewCategory() { 
-    const t = prompt("Nom de la nouvelle catégorie :"); 
+    const t = prompt("Nom catégorie :"); 
     if(t) { database.sections.push({title: t, isMultiple: false, items: []}); save(); render(); } 
 }
 
-// --- Initialisation au démarrage ---
-// ... toutes vos autres fonctions (save, addItem, etc.) au dessus ...
-
-// --- Initialisation au démarrage ---
 window.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('event-date');
-    if (dateInput) {
-        dateInput.min = new Date().toISOString().split('T')[0];
-    }
-    
-    // ON PLACE L'APPEL ICI :
-    applyColors(window.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('event-date');
-    dateInput.min = new Date().toISOString().split('T')[0];
-    applyColors(); // <--- AJOUTER CECI
+    applyColors();
     render();
-});
-               ); 
-    
-    render();
+    const d = document.getElementById('event-date');
+    if(d) d.min = new Date().toISOString().split('T')[0];
 });
 </script>
 </body>
