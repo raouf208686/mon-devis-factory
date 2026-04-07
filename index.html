@@ -72,20 +72,37 @@
         <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">L'ARTISANAT SUR-MESURE</p>
     </div>
 
-    <div id="admin-panel" class="admin-panel">
-        <p style="font-size:11px; font-weight:800; text-align:center;">✨ BIENVENUE CHEF ! (MODE ÉDITION)</p>
-        <div style="margin-bottom:15px; font-size:11px;">
-            Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
-        </div>
-<div style="margin-bottom:15px; font-size:11px;">
-    WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
-</div>
-        <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
-            <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
-            <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
-        </div>
-        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
+   <div id="admin-panel" class="admin-panel">
+    <p style="font-size:11px; font-weight:800; text-align:center;">✨ PERSONNALISATION VITRINE</p>
+    
+    <div style="margin-bottom:15px; font-size:11px;">
+        Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
     </div>
+
+    <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:15px; background:#fff; padding:10px; border-radius:10px;">
+        <div style="text-align:center; flex:1;">
+            <small style="font-size:9px;">Fond</small><br>
+            <input type="color" id="col_bg" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
+        </div>
+        <div style="text-align:center; flex:1;">
+            <small style="font-size:9px;">Texte</small><br>
+            <input type="color" id="col_txt" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
+        </div>
+        <div style="text-align:center; flex:1;">
+            <small style="font-size:9px;">Accent</small><br>
+            <input type="color" id="col_acc" oninput="updateConfig()" style="height:30px; padding:0; border:none;">
+        </div>
+    </div>
+
+    <div style="margin-bottom:15px; font-size:11px;">
+        WhatsApp: <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
+    </div>
+    <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
+        <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
+        <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
+    </div>
+    <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
+</div>
 
     <div class="section-box">
         <span style="font-size:12px; font-weight:700; color:var(--accent);">📐 DÉTAILS DU PROJET</span>
@@ -128,7 +145,13 @@ let database = JSON.parse(localStorage.getItem('nannyV_PRO_V4')) || {
         {title: "Options de Base", isMultiple: false, items: [{n: "Classique", p: 0, s: true}]},
         {title: "Suppléments", isMultiple: true, items: [{n: "Premium", p: 500, s: false}]}
     ],
-    config: { shopName: "MA BOUTIQUE", base: 600, etage: 2000, whatsapp: "213550193993" }
+    config: { 
+        shopName: "MA BOUTIQUE", 
+        base: 600, 
+        etage: 2000, 
+        whatsapp: "213550193993",
+        colors: { bg: "#fff5f8", text: "#4a0e2e", accent: "#d4a373" } // Valeurs par défaut
+    }
 };
 
 // --- Fonctions d'Interface ---
@@ -199,6 +222,10 @@ function syncAdminInputs() {
     document.getElementById('etage_p').value = database.config.etage;
     document.getElementById('shop_n_input').value = database.config.shopName;
     document.getElementById('shop_wa_input').value = database.config.whatsapp;
+    // Sync les couleurs
+    document.getElementById('col_bg').value = database.config.colors.bg;
+    document.getElementById('col_txt').value = database.config.colors.text;
+    document.getElementById('col_acc').value = database.config.colors.accent;
 }
 
 function updateConfig() {
@@ -206,9 +233,29 @@ function updateConfig() {
     database.config.base = parseInt(document.getElementById('base_p').value) || 0;
     database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
     database.config.whatsapp = document.getElementById('shop_wa_input').value;
+    
+    // Sauvegarde des couleurs
+    database.config.colors = {
+        bg: document.getElementById('col_bg').value,
+        text: document.getElementById('col_txt').value,
+        accent: document.getElementById('col_acc').value
+    };
+
+    applyColors(); // Appliquer les styles immédiatement
     save();
     document.getElementById('shop-name-display').innerText = database.config.shopName;
     calculate();
+}
+
+// Nouvelle fonction pour injecter les couleurs dans CSS
+function applyColors() {
+    const root = document.documentElement;
+    const cols = database.config.colors;
+    root.style.setProperty('--bg', cols.bg);
+    root.style.setProperty('--text', cols.text);
+    root.style.setProperty('--accent', cols.accent);
+    // On adapte la couleur de bordure pour qu'elle reste discrète
+    root.style.setProperty('--border', cols.text + "15"); 
 }
 
 // --- Rendu Dynamique ---
@@ -302,9 +349,24 @@ function addNewCategory() {
 }
 
 // --- Initialisation au démarrage ---
+// ... toutes vos autres fonctions (save, addItem, etc.) au dessus ...
+
+// --- Initialisation au démarrage ---
 window.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('event-date');
+    if (dateInput) {
+        dateInput.min = new Date().toISOString().split('T')[0];
+    }
+    
+    // ON PLACE L'APPEL ICI :
+    applyColors(window.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('event-date');
     dateInput.min = new Date().toISOString().split('T')[0];
+    applyColors(); // <--- AJOUTER CECI
+    render();
+});
+               ); 
+    
     render();
 });
 </script>
