@@ -84,7 +84,8 @@
             <div style="width:45%">Base/Part : <input type="number" id="base_p" oninput="updateConfig()"></div>
             <div style="width:45%">Extra Étage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
         </div>
-        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
+        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700; margin-bottom:10px;">+ Nouvelle Catégorie</button>
+        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">🔗 Copier mon lien personnalisé</button>
     </div>
 
     <div class="section-box">
@@ -130,6 +131,34 @@ let database = JSON.parse(localStorage.getItem('kassa_cake_v4')) || {
     ],
     config: { shopName: "KASSA", base: 300, etage: 1000, whatsapp: "213550193993" }
 };
+
+// --- LOGIQUE DE PERSONNALISATION VIA URL ---
+function checkURLParameters() {
+    const params = new URLSearchParams(window.location.search);
+    let updated = false;
+
+    if (params.has('nom')) { database.config.shopName = params.get('nom').replace(/_/g, ' '); updated = true; }
+    if (params.has('wa')) { database.config.whatsapp = params.get('wa'); updated = true; }
+    if (params.has('base')) { database.config.base = parseInt(params.get('base')) || database.config.base; updated = true; }
+    if (params.has('etage')) { database.config.etage = parseInt(params.get('etage')) || database.config.etage; updated = true; }
+
+    if (updated) {
+        save();
+        // Nettoie l'URL pour faire propre (optionnel)
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+function copyClientLink() {
+    const baseUrl = window.location.href.split('?')[0];
+    const nomClean = database.config.shopName.replace(/\s/g, '_');
+    const customLink = `${baseUrl}?nom=${nomClean}&wa=${database.config.whatsapp}&base=${database.config.base}&etage=${database.config.etage}`;
+    
+    navigator.clipboard.writeText(customLink).then(() => {
+        alert("Lien personnalisé copié ! Envoie-le à tes clients.");
+    });
+}
+// --------------------------------------------
 
 function closeWelcome() { 
     const modal = document.getElementById('welcome-modal');
@@ -243,7 +272,6 @@ function sendWA() {
     if(!dateInput) { alert("Choisissez une date."); return; }
     const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     
-    // Message adapté dynamiquement au nom de la boutique
     let msg = `*🍰 DEVIS ${database.config.shopName.toUpperCase()}*\n`;
     msg += `📅 *DATE* : ${formattedDate}\n`;
     msg += `📏 *FORMAT* : ${document.getElementById('parts').value} parts / ${document.getElementById('etages').value} étage(s)\n\n`;
@@ -275,6 +303,7 @@ function addNewCategory() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    checkURLParameters(); // Charge les réglages depuis le lien si présents
     const dateInput = document.getElementById('event-date');
     if(dateInput) dateInput.min = new Date().toISOString().split('T')[0];
     render();
