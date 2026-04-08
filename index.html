@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Création | Premium Edition</title>
+    <title> RAOUF STUDIO | Studio Création Cake Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -28,6 +28,8 @@
         .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px double var(--border); padding-bottom: 15px; }
         .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; }
         
+        .price-notice { font-size: 10px; color: var(--accent); italic; font-weight: 500; text-align: center; margin-bottom: 20px; opacity: 0.9; }
+
         .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; }
         .unit-price-tag { font-size: 9px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
         
@@ -55,9 +57,9 @@
 
 <div id="welcome-modal" class="welcome-overlay">
     <div class="welcome-content">
-        <h2>Votre Création Unique</h2>
-        <p>Composez votre projet sur-mesure et visualisez votre devis instantanément.</p>
-        <button class="btn-start" onclick="closeWelcome()">Commencer</button>
+        <h2>RAOUF STUDIO | Cake Design</h2>
+        <p>Composez votre gâteau sur-mesure et visualisez votre devis instantanément.</p>
+        <button class="btn-start" onclick="closeWelcome()">Commencer la création</button>
     </div>
 </div>
 
@@ -68,41 +70,39 @@
     </div>
 
     <div class="header-title">
-        <h1 id="shop-name-display">MA BOUTIQUE</h1>
+        <h1 id="shop-name-display">KASSA</h1>
         <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">L'ARTISANAT SUR-MESURE</p>
     </div>
 
+    <p class="price-notice"><i>Note : Chaque supplément sélectionné est calculé sur la base d'une seule part.</i></p>
+
     <div id="admin-panel" class="admin-panel">
-        <p style="font-size:11px; font-weight:800; text-align:center;">✨ BIENVENUE CHEF ! (MODE ÉDITION)</p>
-        <div style="margin-bottom:15px; font-size:11px;">
-            Nom Boutique: <input type="text" id="shop_n_input" oninput="updateConfig()" style="width: 80%;">
-        </div>
-<div style="margin-bottom:15px; font-size:11px;">
-    WhatsApp (ex: 213550...): <input type="text" id="shop_wa_input" oninput="updateConfig()" style="width: 70%;">
-</div>
+        <p style="font-size:11px; font-weight:800; text-align:center;">🛠️ RÉGLAGES CHEF</p>
+        <div style="margin-bottom:10px; font-size:11px;">Nom de la boutique : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
+        <div style="margin-bottom:10px; font-size:11px;">WhatsApp : <input type="text" id="shop_wa_input" oninput="updateConfig()"></div>
         <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
-            <div style="width:45%">Prix/Unité: <input type="number" id="base_p" oninput="updateConfig()"></div>
-            <div style="width:45%">Prix/Extra: <input type="number" id="etage_p" oninput="updateConfig()"></div>
+            <div style="width:45%">Base/Part : <input type="number" id="base_p" oninput="updateConfig()"></div>
+            <div style="width:45%">Extra Étage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
         </div>
         <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">+ Nouvelle Catégorie</button>
     </div>
 
     <div class="section-box">
-        <span style="font-size:12px; font-weight:700; color:var(--accent);">📐 DÉTAILS DU PROJET</span>
+        <span style="font-size:12px; font-weight:700; color:var(--accent);">📏 DIMENSIONS</span>
         <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:15px;">
             <div style="flex:1; min-width:100px;">
-                <small>Quantité / Parts</small><br>
+                <small>Nbr de Parts</small><br>
                 <input type="number" id="parts" value="10" oninput="calculate()">
                 <span class="unit-price-tag" id="display-p-part"></span>
             </div>
             <div style="flex:1; min-width:100px;">
-                <small>Complexité / Étages</small><br>
+                <small>Complexité (Étages)</small><br>
                 <input type="number" id="etages" value="1" oninput="calculate()">
                 <span class="unit-price-tag" id="display-p-etage"></span>
             </div>
-            <div style="width:100%; margin-top:10px; border-top:1px dashed var(--border); padding-top:15px;">
-                <small>Date de l'événement</small><br>
-                <input type="date" id="event-date" style="font-size:12px; text-align: left; width: 100%;">
+            <div style="width:100%; margin-top:10px;">
+                <small>Date souhaitée</small><br>
+                <input type="date" id="event-date" style="text-align: left; width: 100%;">
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
     <div id="dynamic-sections"></div>
 
     <div class="footer-total">
-        <div style="font-size: 10px; opacity: 0.7; letter-spacing: 1px;">ESTIMATION DU DEVIS</div>
+        <div style="font-size: 10px; opacity: 0.7; letter-spacing: 1px;">TOTAL ESTIMÉ</div>
         <div class="total-val"><span id="total-display">0</span> DA</div>
         <button class="btn-wa" onclick="sendWA()">Commander via WhatsApp</button>
     </div>
@@ -121,17 +121,16 @@
 </div>
 
 <script>
-   // --- Initialisation de la Base de Données ---
 let isAdmin = false;
-let database = JSON.parse(localStorage.getItem('nannyV_PRO_V4')) || {
+let database = JSON.parse(localStorage.getItem('kassa_cake_v4')) || {
     sections: [
-        {title: "Options de Base", isMultiple: false, items: [{n: "Classique", p: 0, s: true}]},
-        {title: "Suppléments", isMultiple: true, items: [{n: "Premium", p: 500, s: false}]}
+        {title: "Forme du Gâteau", isMultiple: false, items: [{n: "Rond (Classique)", p: 0, s: true}, {n: "Carré (Angles droits)", p: 50, s: false}]},
+        {title: "Saveurs Biscuit", isMultiple: false, items: [{n: "Vanille", p: 0, s: true}, {n: "Chocolat Noir", p: 20, s: false}]},
+        {title: "Fourrages Gourmet", isMultiple: true, items: [{n: "Caramel Beurre Salé", p: 50, s: false}, {n: "Praliné Noisette", p: 100, s: false}]}
     ],
-    config: { shopName: "MA BOUTIQUE", base: 600, etage: 2000, whatsapp: "213550193993" }
+    config: { shopName: "KASSA", base: 300, etage: 1000, whatsapp: "213550193993" }
 };
 
-// --- Fonctions d'Interface ---
 function closeWelcome() { 
     const modal = document.getElementById('welcome-modal');
     modal.style.opacity = '0'; 
@@ -142,76 +141,22 @@ function toggleTheme() {
     document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; 
 }
 
-// --- Logique Métier ---
 function calculate() {
-    const pInput = document.getElementById('parts');
-    const eInput = document.getElementById('etages');
+    const p = Math.max(0, parseInt(document.getElementById('parts').value) || 0);
+    const e = Math.max(1, parseInt(document.getElementById('etages').value) || 1);
     
-    // Protection contre les valeurs négatives
-    const p = Math.max(0, parseInt(pInput.value) || 0);
-    const e = Math.max(1, parseInt(eInput.value) || 1);
+    document.getElementById('display-p-part').innerText = `${database.config.base} DA / part`;
+    document.getElementById('display-p-etage').innerText = `+${database.config.etage} DA / étage`;
     
-    document.getElementById('display-p-part').innerText = `${database.config.base} DA / unité`;
-    document.getElementById('display-p-etage').innerText = `+${database.config.etage} DA / extra`;
-    
-    let total = (p * database.config.base) + ((e - 1) * database.config.etage);
-    
+    let prixParPart = database.config.base;
     database.sections.forEach(sec => {
-        sec.items.forEach(item => { if (item.s) total += item.p; });
+        sec.items.forEach(item => { if (item.s) prixParPart += item.p; });
     });
 
-    // Affichage formaté (ex: 15 000 DA)
+    let total = (p * prixParPart) + ((e - 1) * database.config.etage);
     document.getElementById('total-display').innerText = new Intl.NumberFormat('fr-FR').format(total);
 }
 
-function toggleItem(sIdx, iIdx) {
-    const sec = database.sections[sIdx];
-    if (sec.isMultiple) {
-        sec.items[iIdx].s = !sec.items[iIdx].s;
-    } else {
-        const wasSelected = sec.items[iIdx].s;
-        sec.items.forEach(item => item.s = false);
-        sec.items[iIdx].s = !wasSelected;
-    }
-    save(); 
-    render();
-}
-
-// --- Administration ---
-function toggleAdmin() {
-    if (!isAdmin) {
-        if (prompt("Code Sécurité Atelier :") === "1234") {
-            isAdmin = true;
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('modeBtn').innerText = "✔️ Terminer";
-            syncAdminInputs();
-        }
-    } else {
-        isAdmin = false;
-        document.getElementById('admin-panel').style.display = 'none';
-        document.getElementById('modeBtn').innerText = "⚙️ Atelier";
-    }
-    render();
-}
-
-function syncAdminInputs() {
-    document.getElementById('base_p').value = database.config.base;
-    document.getElementById('etage_p').value = database.config.etage;
-    document.getElementById('shop_n_input').value = database.config.shopName;
-    document.getElementById('shop_wa_input').value = database.config.whatsapp;
-}
-
-function updateConfig() {
-    database.config.shopName = document.getElementById('shop_n_input').value || "Boutique";
-    database.config.base = parseInt(document.getElementById('base_p').value) || 0;
-    database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
-    database.config.whatsapp = document.getElementById('shop_wa_input').value;
-    save();
-    document.getElementById('shop-name-display').innerText = database.config.shopName;
-    calculate();
-}
-
-// --- Rendu Dynamique ---
 function render() {
     document.getElementById('shop-name-display').innerText = database.config.shopName;
     const container = document.getElementById('dynamic-sections');
@@ -234,9 +179,9 @@ function render() {
         sec.items.forEach((item, iIdx) => {
             html += `
             <div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
-                <span>${item.n}</span>
+                <span style="font-size:13px; font-weight:500;">${item.n}</span>
                 <span style="display:flex; align-items:center;">
-                    <span style="font-weight:700;">${item.p} DA</span>
+                    <span style="font-size:10px; margin-right:5px; opacity:0.8;">+${item.p} DA/p</span>
                     ${isAdmin ? `
                         <button onclick="event.stopPropagation(); editItemPrice(${sIdx}, ${iIdx})" class="admin-btn-small">PRIX</button>
                         <button onclick="event.stopPropagation(); deleteItem(${sIdx}, ${iIdx})" style="margin-left:5px; border:none; background:none; color:red; font-weight:bold; cursor:pointer;">×</button>
@@ -244,67 +189,94 @@ function render() {
                 </span>
             </div>`;
         });
-
-        if (isAdmin) {
-            html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); padding:8px; border-radius:10px; cursor:pointer; font-size:10px; margin-top:10px;">+ Ajouter Option</button>`;
-        }
+        if (isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); padding:8px; border-radius:10px; cursor:pointer; font-size:10px; margin-top:10px;">+ Ajouter Option</button>`;
         container.innerHTML += html + `</div>`;
     });
     calculate();
 }
 
-// --- WhatsApp & Export ---
+function toggleItem(sIdx, iIdx) {
+    const sec = database.sections[sIdx];
+    if (sec.isMultiple) {
+        sec.items[iIdx].s = !sec.items[iIdx].s;
+    } else {
+        sec.items.forEach((item, idx) => item.s = (idx === iIdx));
+    }
+    save(); render();
+}
+
+function toggleAdmin() {
+    if (!isAdmin) {
+        if (prompt("Code :") === "1234") {
+            isAdmin = true;
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('modeBtn').innerText = "✔️ Terminer";
+            syncAdminInputs();
+        }
+    } else {
+        isAdmin = false;
+        document.getElementById('admin-panel').style.display = 'none';
+        document.getElementById('modeBtn').innerText = "⚙️ Atelier";
+    }
+    render();
+}
+
+function syncAdminInputs() {
+    document.getElementById('base_p').value = database.config.base;
+    document.getElementById('etage_p').value = database.config.etage;
+    document.getElementById('shop_n_input').value = database.config.shopName;
+    document.getElementById('shop_wa_input').value = database.config.whatsapp;
+}
+
+function updateConfig() {
+    database.config.shopName = document.getElementById('shop_n_input').value || "KASSA";
+    database.config.base = parseInt(document.getElementById('base_p').value) || 0;
+    database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
+    database.config.whatsapp = document.getElementById('shop_wa_input').value;
+    save();
+    document.getElementById('shop-name-display').innerText = database.config.shopName;
+    calculate();
+}
+
 function sendWA() {
     const dateInput = document.getElementById('event-date').value;
-    if(!dateInput) { 
-        alert("Veuillez choisir une date pour l'événement."); 
-        return; 
-    }
-
-    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-    });
-
-    let msg = `*✨ NOUVELLE COMMANDE ✨*\n`;
-    msg += `*Boutique : ${database.config.shopName.toUpperCase()}*\n`;
-    msg += `------------------------------------------\n`;
-    msg += `📅 *ÉVÉNEMENT* : ${formattedDate}\n`;
-    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} unités / ${document.getElementById('etages').value} extra(s)\n\n`;
+    if(!dateInput) { alert("Choisissez une date."); return; }
+    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    
+    // Message adapté dynamiquement au nom de la boutique
+    let msg = `*🍰 DEVIS ${database.config.shopName.toUpperCase()}*\n`;
+    msg += `📅 *DATE* : ${formattedDate}\n`;
+    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} parts / ${document.getElementById('etages').value} étage(s)\n\n`;
     
     database.sections.forEach(sec => {
         let sel = sec.items.filter(i => i.s).map(i => i.n);
         if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
     });
-    
     msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
-    msg += `\n------------------------------------------`;
-    
     window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
 }
 
-// --- Helpers ---
-function save() { localStorage.setItem('nannyV_PRO_V4', JSON.stringify(database)); }
+function save() { localStorage.setItem('kassa_cake_v4', JSON.stringify(database)); }
 function toggleSecMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
-function deleteCategory(idx) { if(confirm("Supprimer la section ?")) { database.sections.splice(idx, 1); save(); render(); } }
+function deleteCategory(idx) { if(confirm("Supprimer ?")) { database.sections.splice(idx, 1); save(); render(); } }
 function addItem(idx) { 
-    const n = prompt("Nom de l'option :"); 
-    const p = prompt("Prix (DA) :"); 
+    const n = prompt("Nom :"); 
+    const p = prompt("Supplément / part (DA) :"); 
     if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } 
 }
 function deleteItem(sIdx, iIdx) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); }
 function editItemPrice(sIdx, iIdx) {
-    const newPrice = prompt("Nouveau prix :", database.sections[sIdx].items[iIdx].p);
+    const newPrice = prompt("Nouveau prix par part :", database.sections[sIdx].items[iIdx].p);
     if (newPrice !== null) { database.sections[sIdx].items[iIdx].p = parseInt(newPrice) || 0; save(); render(); }
 }
 function addNewCategory() { 
-    const t = prompt("Nom de la nouvelle catégorie :"); 
+    const t = prompt("Catégorie :"); 
     if(t) { database.sections.push({title: t, isMultiple: false, items: []}); save(); render(); } 
 }
 
-// --- Initialisation au démarrage ---
 window.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('event-date');
-    dateInput.min = new Date().toISOString().split('T')[0];
+    if(dateInput) dateInput.min = new Date().toISOString().split('T')[0];
     render();
 });
 </script>
