@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> RAOUF STUDIO | Studio Création Cake Design</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <title> RAOUF STUDIO | Cake Devis Pro </title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root { 
             --bg: #fff5f8; --card: #ffffff; --text: #4a0e2e; --accent: #d4a373; 
@@ -19,295 +19,281 @@
         .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; }
         .welcome-content { max-width: 400px; animation: fadeInUp 0.8s ease; }
         .welcome-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 15px; color: var(--accent); }
-        .welcome-content p { font-size: 14px; line-height: 1.6; opacity: 0.9; margin-bottom: 25px; }
         .btn-start { background: var(--accent); color: var(--text); border: none; padding: 12px 35px; border-radius: 25px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .app-container { width: 100%; max-width: 500px; background: var(--card); padding: 25px; border-radius: 35px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); position: relative; border: 1px solid var(--border); margin-bottom: 50px; }
         .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px double var(--border); padding-bottom: 15px; }
-        .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; }
+        .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
         
-        .price-notice { font-size: 10px; color: var(--accent); italic; font-weight: 500; text-align: center; margin-bottom: 20px; opacity: 0.9; }
+        .price-notice { font-size: 10px; color: var(--accent); font-style: italic; font-weight: 500; text-align: center; margin-bottom: 20px; opacity: 0.9; }
+        .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; position: relative;}
+        
+        .badge-mode { 
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px; padding: 3px 10px; border-radius: 20px; 
+            background: rgba(212, 163, 115, 0.1); color: var(--accent); 
+            margin-top: 5px; display: inline-block; font-weight: 700;
+            border: 0.5px solid rgba(212, 163, 115, 0.3);
+        }
 
-        .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; }
-        .unit-price-tag { font-size: 9px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
-        
+        .unit-price-info { font-size: 10px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
+
         .option-card { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; background: var(--bg); transition: 0.3s; border: 1px solid transparent; }
         .option-card.selected { background: var(--text); color: var(--card); border-color: var(--accent); transform: scale(1.02); }
         
         .footer-total { margin-top: 30px; padding: 30px; background: var(--text); border-radius: 30px; text-align: center; color: var(--card); }
-        .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); }
         
-        .btn-wa { background: linear-gradient(45deg, #d4a373, #faedcd, #d4a373); background-size: 200% auto; color: var(--text); width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; transition: 0.5s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
+        .btn-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
         
-        input { background: transparent; color: var(--text); border: none; border-bottom: 1px solid var(--border); width: 100%; padding: 5px; font-weight: 700; text-align: center; }
-        input[type="date"] { font-family: 'Montserrat', sans-serif; cursor: pointer; }
+        input, textarea { background: transparent; color: var(--text); border: none; border-bottom: 1px solid var(--border); width: 100%; padding: 8px; font-family: 'Montserrat', sans-serif; box-sizing: border-box; }
+        textarea { border: 1px solid var(--border); border-radius: 15px; margin-top: 10px; resize: none; font-size: 13px; }
 
         .admin-panel { display: none; margin-bottom: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 20px; background: #fffdf5; color: #4a0e2e; }
-
-        .signature { text-align: center; margin-top: 30px; padding-bottom: 20px; font-size: 10px; opacity: 0.7; letter-spacing: 1px; }
-        .signature a { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px solid var(--accent); }
+        .signature { text-align: center; margin-top: 30px; padding-bottom: 20px; font-size: 10px; opacity: 0.7; }
         
-        .admin-btn-small { border:none; background:var(--accent); color:white; border-radius:5px; font-size:8px; cursor:pointer; padding:2px 4px; margin-left:4px; text-transform:uppercase; }
-        .badge-mode { font-size: 8px; padding: 2px 6px; border-radius: 10px; background: var(--border); color: var(--accent); margin-top: 5px; display: inline-block; }
+        [data-lang="ar"] { direction: rtl; text-align: right; }
+        [data-lang="ar"] input, [data-lang="ar"] textarea { text-align: right; }
     </style>
 </head>
-<body data-theme="light">
+<body data-theme="light" data-lang="fr">
 
 <div id="welcome-modal" class="welcome-overlay">
     <div class="welcome-content">
-        <h2>RAOUF STUDIO | Cake Design</h2>
-        <p>Composez votre gâteau sur-mesure et visualisez votre devis instantanément.</p>
-        <button class="btn-start" onclick="closeWelcome()">Commencer la création</button>
+        <h2 id="w-title">RAOUF STUDIO</h2>
+        <p id="w-p">Composez votre gâteau sur-mesure et visualisez votre devis instantanément.</p>
+        <button class="btn-start" onclick="closeWelcome()">Commencer</button>
     </div>
 </div>
 
 <div class="app-container">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-        <button style="background:var(--text); color:white; border:none; padding:8px 15px; border-radius:20px; font-size:10px; cursor:pointer;" onclick="toggleTheme()">🌓 Thème</button>
-        <button style="background:var(--text); color:white; border:none; padding:8px 15px; border-radius:20px; font-size:10px; cursor:pointer;" id="modeBtn" onclick="toggleAdmin()">⚙️ Atelier</button>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; gap: 5px;">
+        <button style="background:var(--text); color:white; border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer;" onclick="toggleTheme()">🌓 Mode</button>
+        <button style="background:var(--accent); color:var(--text); border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer; font-weight:bold;" onclick="toggleLang()">🇩🇿 Darija</button>
+        <button style="background:var(--text); color:white; border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer;" onclick="toggleAdmin()">⚙️ Atelier</button>
     </div>
 
     <div class="header-title">
-        <h1 id="shop-name-display">KASSA</h1>
-        <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">L'ARTISANAT SUR-MESURE</p>
+        <h1 id="shop-name-display">Boutique</h1>
+        <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;"></p>
     </div>
 
-    <p class="price-notice"><i>Note : Chaque supplément sélectionné est calculé sur la base d'une seule part.</i></p>
-
     <div id="admin-panel" class="admin-panel">
-        <p style="font-size:11px; font-weight:800; text-align:center;">🛠️ RÉGLAGES CHEF</p>
-        <div style="margin-bottom:10px; font-size:11px;">Nom de la boutique : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
-        <div style="margin-bottom:10px; font-size:11px;">WhatsApp : <input type="text" id="shop_wa_input" oninput="updateConfig()"></div>
-        <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:15px;">
-            <div style="width:45%">Base/Part : <input type="number" id="base_p" oninput="updateConfig()"></div>
-            <div style="width:45%">Extra Étage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
+        <p style="text-align:center; font-weight:800; font-size:12px;">🛠️ CONFIGURATION</p>
+        <div style="font-size:11px;">Nom : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
+        <div style="font-size:11px;">WhatsApp : <input type="text" id="shop_wa_input" oninput="updateConfig()"></div>
+        <div style="font-size:11px;">Insta : <input type="text" id="shop_insta_input" oninput="updateConfig()"></div>
+        <div style="display:flex; justify-content:space-between; gap:10px;">
+            <div style="width:50%; font-size:11px;">Base/Part : <input type="number" id="base_p" oninput="updateConfig()"></div>
+            <div style="width:50%; font-size:11px;">Extra Etage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
         </div>
-        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700; margin-bottom:10px;">+ Nouvelle Catégorie</button>
-        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; cursor:pointer; font-size:10px; font-weight:700;">🔗 Copier mon lien personnalisé</button>
+        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">+ Nouvelle Catégorie</button>
+        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">🔗 Copier Lien Personnalisé</button>
+        <button onclick="toggleAdmin()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:15px; margin-top:10px; font-weight:bold;">Valider ✅</button>
     </div>
 
     <div class="section-box">
-        <span style="font-size:12px; font-weight:700; color:var(--accent);">📏 DIMENSIONS</span>
+        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-dim">📏 DIMENSIONS</span>
         <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:15px;">
-            <div style="flex:1; min-width:100px;">
-                <small>Nbr de Parts</small><br>
+            <div style="flex:1;">
+                <small id="label-parts">Nbr Parts</small><br>
                 <input type="number" id="parts" value="10" oninput="calculate()">
-                <span class="unit-price-tag" id="display-p-part"></span>
+                <span class="unit-price-info" id="price-parts-info"></span>
             </div>
-            <div style="flex:1; min-width:100px;">
-                <small>Complexité (Étages)</small><br>
+            <div style="flex:1;">
+                <small id="label-etages">Étages</small><br>
                 <input type="number" id="etages" value="1" oninput="calculate()">
-                <span class="unit-price-tag" id="display-p-etage"></span>
+                <span class="unit-price-info" id="price-etages-info"></span>
             </div>
-            <div style="width:100%; margin-top:10px;">
-                <small>Date souhaitée</small><br>
-                <input type="date" id="event-date" style="text-align: left; width: 100%;">
-            </div>
+            <div style="width:100%;"><small id="label-date">Date</small><input type="date" id="event-date"></div>
         </div>
     </div>
 
     <div id="dynamic-sections"></div>
 
-    <div class="footer-total">
-        <div style="font-size: 10px; opacity: 0.7; letter-spacing: 1px;">TOTAL ESTIMÉ</div>
-        <div class="total-val"><span id="total-display">0</span> DA</div>
-        <button class="btn-wa" onclick="sendWA()">Commander via WhatsApp</button>
+    <div class="section-box">
+        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-note-client">✍️ NOTE PARTICULIÈRE</span><br>
+        <textarea id="client-note" rows="3" placeholder="Ex: Thème Spider-Man, couleurs..."></textarea>
     </div>
 
-    <div class="signature">
-        DESIGNED BY <a href="https://wa.me/213792269732" target="_blank">RAOUF STUDIO</a>
+    <div class="footer-total">
+        <div id="label-total" style="font-size: 10px; opacity: 0.7;">TOTAL ESTIMÉ</div>
+        <div class="total-val"><span id="total-display">0</span> DA</div>
+        <button class="btn-wa" onclick="sendWA()" id="btn-wa-text">WhatsApp</button>
+        <button class="btn-insta" onclick="sendInsta()" id="btn-insta-text">Instagram</button>
     </div>
+
+    <div class="signature">DESIGNED BY <a href="#" style="color:var(--accent); text-decoration:none; font-weight:700;">RAOUF STUDIO</a></div>
 </div>
 
 <script>
 let isAdmin = false;
-let database = JSON.parse(localStorage.getItem('kassa_cake_v4')) || {
-    sections: [
-        {title: "Forme du Gâteau", isMultiple: false, items: [{n: "Rond (Classique)", p: 0, s: true}, {n: "Carré (Angles droits)", p: 50, s: false}]},
-        {title: "Saveurs Biscuit", isMultiple: false, items: [{n: "Vanille", p: 0, s: true}, {n: "Chocolat Noir", p: 20, s: false}]},
-        {title: "Fourrages Gourmet", isMultiple: true, items: [{n: "Caramel Beurre Salé", p: 50, s: false}, {n: "Praliné Noisette", p: 100, s: false}]}
-    ],
-    config: { shopName: "KASSA", base: 300, etage: 1000, whatsapp: "213550193993" }
+const langMap = {
+    fr: {
+        dim: "📏 DIMENSIONS", parts: "Nbr de Parts", etages: "Étages", date: "Date souhaitée",
+        total: "TOTAL ESTIMÉ", wa: "Commander via WhatsApp", insta: "Commander via Instagram",
+        unique: "CHOIX UNIQUE", multiple: "SÉLECTION LIBRE", noteLabel: "✍️ NOTE PARTICULIÈRE",
+        perPart: "DA / part", perEtage: "+ DA / étage", note: "Note : Supplément calculé par part.",
+        copy: "Lien copié !", dateErr: "Veuillez choisir une date."
+    },
+    ar: {
+        dim: "📏 القياسات", parts: "عدد الأشخاص", etages: "عدد الطوابق", date: "تاريخ المناسبة",
+        total: "السعر الإجمالي", wa: "اطلب عبر واتساب", insta: "اطلب عبر إنستغرام",
+        unique: "اختيار واحد فقط", multiple: "إختيارات متعددة", noteLabel: "✍️ ملاحظة خاصة",
+        perPart: "دج / للشخص", perEtage: "+ دج / للطابق", note: "ملاحظة: الإضافة تحسب للشخص",
+        copy: "تم نسخ الرابط !", dateErr: "اختر التاريخ أولاً"
+    }
 };
 
-// --- LOGIQUE DE PERSONNALISATION VIA URL ---
+let database = JSON.parse(localStorage.getItem('kassa_cake_v5')) || {
+    sections: [
+        {title: "Forme", isMultiple: false, items: [{n: "Rond", p: 0, s: true}, {n: "Carré", p: 50, s: false}]},
+        {title: "Goût", isMultiple: false, items: [{n: "Vanille", p: 0, s: true}, {n: "Choco", p: 20, s: false}]}
+    ],
+    config: { shopName: "MA BOUTIQUE", base: 300, etage: 1000, whatsapp: "213", instagram: "", lang: "fr" }
+};
+
 function checkURLParameters() {
     const params = new URLSearchParams(window.location.search);
-    let updated = false;
+    if (params.has('nom')) database.config.shopName = params.get('nom').replace(/_/g, ' ');
+    if (params.has('wa')) database.config.whatsapp = params.get('wa');
+    if (params.has('insta')) database.config.instagram = params.get('insta');
+    if (params.has('base')) database.config.base = parseInt(params.get('base'));
+    if (params.has('etage')) database.config.etage = parseInt(params.get('etage'));
+}
 
-    if (params.has('nom')) { database.config.shopName = params.get('nom').replace(/_/g, ' '); updated = true; }
-    if (params.has('wa')) { database.config.whatsapp = params.get('wa'); updated = true; }
-    if (params.has('base')) { database.config.base = parseInt(params.get('base')) || database.config.base; updated = true; }
-    if (params.has('etage')) { database.config.etage = parseInt(params.get('etage')) || database.config.etage; updated = true; }
-
-    if (updated) {
-        save();
-        // Nettoie l'URL pour faire propre (optionnel)
-        window.history.replaceState({}, document.title, window.location.pathname);
+function cleanURL() {
+    if (window.location.search) {
+        const params = new URLSearchParams(window.location.search);
+        const shop = params.get('nom') || "";
+        const cleanPath = window.location.pathname + (shop ? `?nom=${shop}` : "");
+        window.history.replaceState({}, document.title, cleanPath);
     }
 }
 
-function copyClientLink() {
-    const baseUrl = window.location.href.split('?')[0];
-    const nomClean = database.config.shopName.replace(/\s/g, '_');
-    const customLink = `${baseUrl}?nom=${nomClean}&wa=${database.config.whatsapp}&base=${database.config.base}&etage=${database.config.etage}`;
+function render() {
+    const lang = database.config.lang;
+    document.body.dataset.lang = lang;
+    document.getElementById('label-dim').innerText = langMap[lang].dim;
+    document.getElementById('label-parts').innerText = langMap[lang].parts;
+    document.getElementById('label-etages').innerText = langMap[lang].etages;
+    document.getElementById('label-date').innerText = langMap[lang].date;
+    document.getElementById('label-total').innerText = langMap[lang].total;
+    document.getElementById('btn-wa-text').innerText = langMap[lang].wa;
+    document.getElementById('btn-insta-text').innerText = langMap[lang].insta;
+    document.getElementById('label-note-client').innerText = langMap[lang].noteLabel;
     
-    navigator.clipboard.writeText(customLink).then(() => {
-        alert("Lien personnalisé copié ! Envoie-le à tes clients.");
+    document.getElementById('price-parts-info').innerText = `${database.config.base} ${langMap[lang].perPart}`;
+    document.getElementById('price-etages-info').innerText = `${database.config.etage} ${langMap[lang].perEtage}`;
+    document.getElementById('shop-name-display').innerText = database.config.shopName;
+
+    const container = document.getElementById('dynamic-sections');
+    container.innerHTML = '';
+    database.sections.forEach((sec, sIdx) => {
+        let html = `<div class="section-box"><div style="display:flex; justify-content:space-between;">
+            <div><span style="font-weight:700; color:var(--accent);">${sec.title}</span><br>
+            <span class="badge-mode" onclick="${isAdmin ? `toggleCategoryMode(${sIdx})` : ''}" style="${isAdmin?'cursor:pointer;border:1px solid var(--accent)':''}">
+                ${sec.isMultiple ? langMap[lang].multiple : langMap[lang].unique} ${isAdmin?'🔄':''}
+            </span></div>
+            ${isAdmin ? `<button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; font-size:18px;">×</button>` : ''}
+        </div>`;
+        sec.items.forEach((item, iIdx) => {
+            html += `<div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
+                <span>${item.n}</span><span>+${item.p} DA</span>
+            </div>`;
+        });
+        if(isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); font-size:10px; margin-top:5px;">+ Option</button>`;
+        html += `<p style="font-size:8px; opacity:0.5; text-align:center; margin-top:10px;">${langMap[lang].note}</p></div>`;
+        container.innerHTML += html;
     });
-}
-// --------------------------------------------
-
-function closeWelcome() { 
-    const modal = document.getElementById('welcome-modal');
-    modal.style.opacity = '0'; 
-    setTimeout(() => modal.style.display = 'none', 500); 
-}
-
-function toggleTheme() { 
-    document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; 
+    calculate();
 }
 
 function calculate() {
     const p = Math.max(0, parseInt(document.getElementById('parts').value) || 0);
     const e = Math.max(1, parseInt(document.getElementById('etages').value) || 1);
-    
-    document.getElementById('display-p-part').innerText = `${database.config.base} DA / part`;
-    document.getElementById('display-p-etage').innerText = `+${database.config.etage} DA / étage`;
-    
-    let prixParPart = database.config.base;
-    database.sections.forEach(sec => {
-        sec.items.forEach(item => { if (item.s) prixParPart += item.p; });
-    });
-
-    let total = (p * prixParPart) + ((e - 1) * database.config.etage);
+    let pParPart = database.config.base;
+    database.sections.forEach(sec => sec.items.forEach(i => { if (i.s) pParPart += i.p; }));
+    let total = (p * pParPart) + ((e - 1) * database.config.etage);
     document.getElementById('total-display').innerText = new Intl.NumberFormat('fr-FR').format(total);
-}
-
-function render() {
-    document.getElementById('shop-name-display').innerText = database.config.shopName;
-    const container = document.getElementById('dynamic-sections');
-    container.innerHTML = '';
-    
-    database.sections.forEach((sec, sIdx) => {
-        let html = `
-        <div class="section-box">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <div>
-                    <span style="font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase;">${sec.title}</span><br>
-                    <span class="badge-mode">${sec.isMultiple ? 'SÉLECTION LIBRE' : 'CHOIX UNIQUE'}</span>
-                </div>
-                ${isAdmin ? `<div>
-                    <button onclick="toggleSecMode(${sIdx})" class="admin-btn-small">${sec.isMultiple ? 'Unique' : 'Libre'}</button>
-                    <button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold; margin-left:10px;">×</button>
-                </div>` : ''}
-            </div>`;
-        
-        sec.items.forEach((item, iIdx) => {
-            html += `
-            <div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
-                <span style="font-size:13px; font-weight:500;">${item.n}</span>
-                <span style="display:flex; align-items:center;">
-                    <span style="font-size:10px; margin-right:5px; opacity:0.8;">+${item.p} DA/p</span>
-                    ${isAdmin ? `
-                        <button onclick="event.stopPropagation(); editItemPrice(${sIdx}, ${iIdx})" class="admin-btn-small">PRIX</button>
-                        <button onclick="event.stopPropagation(); deleteItem(${sIdx}, ${iIdx})" style="margin-left:5px; border:none; background:none; color:red; font-weight:bold; cursor:pointer;">×</button>
-                    ` : ''}
-                </span>
-            </div>`;
-        });
-        if (isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); padding:8px; border-radius:10px; cursor:pointer; font-size:10px; margin-top:10px;">+ Ajouter Option</button>`;
-        container.innerHTML += html + `</div>`;
-    });
-    calculate();
 }
 
 function toggleItem(sIdx, iIdx) {
     const sec = database.sections[sIdx];
-    if (sec.isMultiple) {
-        sec.items[iIdx].s = !sec.items[iIdx].s;
-    } else {
-        sec.items.forEach((item, idx) => item.s = (idx === iIdx));
-    }
-    save(); render();
-}
-
-function toggleAdmin() {
-    if (!isAdmin) {
-        if (prompt("Code :") === "1234") {
-            isAdmin = true;
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('modeBtn').innerText = "✔️ Terminer";
-            syncAdminInputs();
-        }
-    } else {
-        isAdmin = false;
-        document.getElementById('admin-panel').style.display = 'none';
-        document.getElementById('modeBtn').innerText = "⚙️ Atelier";
-    }
+    if (sec.isMultiple) sec.items[iIdx].s = !sec.items[iIdx].s;
+    else sec.items.forEach((item, idx) => item.s = (idx === iIdx));
     render();
 }
 
-function syncAdminInputs() {
+function getMsg() {
+    const d = document.getElementById('event-date').value; if(!d) return null;
+    let m = `*🍰 DEVIS ${database.config.shopName}*\n📅 Date: ${d}\n📏 ${document.getElementById('parts').value} parts / ${document.getElementById('etages').value} étage(s)\n\n`;
+    database.sections.forEach(sec => {
+        let sel = sec.items.filter(i => i.s).map(i => i.n);
+        if(sel.length) m += `🔹 *${sec.title}*: ${sel.join(', ')}\n`;
+    });
+    const note = document.getElementById('client-note').value;
+    if(note) m += `\n📝 *Note client*: ${note}\n`;
+    m += `\n💰 *TOTAL: ${document.getElementById('total-display').innerText} DA*`;
+    return m;
+}
+
+function sendWA() { 
+    const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr);
+    window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(m)}`); 
+}
+
+function sendInsta() {
+    const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr);
+    navigator.clipboard.writeText(m).then(() => {
+        alert(langMap[database.config.lang].copy);
+        window.open(`https://www.instagram.com/${database.config.instagram.replace('@','')}/`);
+    });
+}
+
+function toggleAdmin() {
+    if (!isAdmin) { if(prompt("Code:") === "1234") { isAdmin = true; document.getElementById('admin-panel').style.display = 'block'; syncAdmin(); } }
+    else { isAdmin = false; document.getElementById('admin-panel').style.display = 'none'; }
+    render();
+}
+
+function syncAdmin() {
     document.getElementById('base_p').value = database.config.base;
     document.getElementById('etage_p').value = database.config.etage;
     document.getElementById('shop_n_input').value = database.config.shopName;
     document.getElementById('shop_wa_input').value = database.config.whatsapp;
+    document.getElementById('shop_insta_input').value = database.config.instagram;
 }
 
 function updateConfig() {
-    database.config.shopName = document.getElementById('shop_n_input').value || "KASSA";
+    database.config.shopName = document.getElementById('shop_n_input').value;
     database.config.base = parseInt(document.getElementById('base_p').value) || 0;
     database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
     database.config.whatsapp = document.getElementById('shop_wa_input').value;
-    save();
-    document.getElementById('shop-name-display').innerText = database.config.shopName;
-    calculate();
+    database.config.instagram = document.getElementById('shop_insta_input').value;
+    save(); calculate();
 }
 
-function sendWA() {
-    const dateInput = document.getElementById('event-date').value;
-    if(!dateInput) { alert("Choisissez une date."); return; }
-    const formattedDate = new Date(dateInput).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    
-    let msg = `*🍰 DEVIS ${database.config.shopName.toUpperCase()}*\n`;
-    msg += `📅 *DATE* : ${formattedDate}\n`;
-    msg += `📏 *FORMAT* : ${document.getElementById('parts').value} parts / ${document.getElementById('etages').value} étage(s)\n\n`;
-    
-    database.sections.forEach(sec => {
-        let sel = sec.items.filter(i => i.s).map(i => i.n);
-        if(sel.length) msg += `🔹 *${sec.title}* : ${sel.join(', ')}\n`;
-    });
-    msg += `\n💰 *TOTAL ESTIMÉ : ${document.getElementById('total-display').innerText} DA*`;
-    window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(msg)}`);
+function copyClientLink() {
+    const url = window.location.href.split('?')[0];
+    const nom = database.config.shopName.replace(/\s/g, '_');
+    const link = `${url}?nom=${nom}&wa=${database.config.whatsapp}&insta=${database.config.instagram}&base=${database.config.base}&etage=${database.config.etage}`;
+    navigator.clipboard.writeText(link).then(() => alert("Lien Perso Copié !"));
 }
 
-function save() { localStorage.setItem('kassa_cake_v4', JSON.stringify(database)); }
-function toggleSecMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
-function deleteCategory(idx) { if(confirm("Supprimer ?")) { database.sections.splice(idx, 1); save(); render(); } }
-function addItem(idx) { 
-    const n = prompt("Nom :"); 
-    const p = prompt("Supplément / part (DA) :"); 
-    if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } 
-}
-function deleteItem(sIdx, iIdx) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); }
-function editItemPrice(sIdx, iIdx) {
-    const newPrice = prompt("Nouveau prix par part :", database.sections[sIdx].items[iIdx].p);
-    if (newPrice !== null) { database.sections[sIdx].items[iIdx].p = parseInt(newPrice) || 0; save(); render(); }
-}
-function addNewCategory() { 
-    const t = prompt("Catégorie :"); 
-    if(t) { database.sections.push({title: t, isMultiple: false, items: []}); save(); render(); } 
-}
+function toggleCategoryMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
+function deleteCategory(idx) { if(confirm("Supprimer?")) { database.sections.splice(idx, 1); save(); render(); } }
+function addItem(idx) { const n = prompt("Option:"); const p = prompt("Prix:"); if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } }
+function addNewCategory() { const t = prompt("Titre:"); if(t) { database.sections.push({title: t, isMultiple: false, items: []}); save(); render(); } }
+function save() { localStorage.setItem('kassa_cake_v5', JSON.stringify(database)); }
+function toggleTheme() { document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; }
+function toggleLang() { database.config.lang = database.config.lang === "fr" ? "ar" : "fr"; render(); }
+function closeWelcome() { document.getElementById('welcome-modal').style.display = 'none'; }
 
-window.addEventListener('DOMContentLoaded', () => {
-    checkURLParameters(); // Charge les réglages depuis le lien si présents
-    const dateInput = document.getElementById('event-date');
-    if(dateInput) dateInput.min = new Date().toISOString().split('T')[0];
-    render();
-});
+window.onload = () => { checkURLParameters(); render(); setTimeout(cleanURL, 1000); };
 </script>
 </body>
 </html>
