@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title> RAOUF STUDIO | Cake Devis Pro </title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -15,7 +15,7 @@
             --info: #fb8500; --border: #4a0e2e;
         }
 
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; transition: 0.4s; overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; transition: 0.4s; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; }
         .welcome-content { max-width: 400px; animation: fadeInUp 0.8s ease; }
         .welcome-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 15px; color: var(--accent); }
@@ -27,9 +27,9 @@
         .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px double var(--border); padding-bottom: 15px; }
         .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
         
-        .price-notice { font-size: 10px; color: var(--accent); font-style: italic; font-weight: 500; text-align: center; margin-bottom: 20px; opacity: 0.9; }
         .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; position: relative;}
-        
+        .info-bubble { display: inline-block; width: 14px; height: 14px; background: var(--accent); color: white; border-radius: 50%; font-size: 10px; text-align: center; line-height: 14px; cursor: help; margin-left: 5px; }
+
         .badge-mode { 
             font-family: 'Cormorant Garamond', serif;
             font-size: 11px; padding: 3px 10px; border-radius: 20px; 
@@ -39,10 +39,12 @@
         }
 
         .unit-price-info { font-size: 10px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
-
         .option-card { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; background: var(--bg); transition: 0.3s; border: 1px solid transparent; }
         .option-card.selected { background: var(--text); color: var(--card); border-color: var(--accent); transform: scale(1.02); }
         
+        .admin-actions { display: flex; gap: 5px; }
+        .btn-edit { background: none; border: none; font-size: 12px; cursor: pointer; }
+
         .footer-total { margin-top: 30px; padding: 30px; background: var(--text); border-radius: 30px; text-align: center; color: var(--card); }
         .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); }
         
@@ -70,20 +72,20 @@
 </div>
 
 <div class="app-container">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; gap: 5px;">
-        <button style="background:var(--text); color:white; border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer;" onclick="toggleTheme()">🌓 Mode</button>
-        <button style="background:var(--accent); color:var(--text); border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer; font-weight:bold;" onclick="toggleLang()">🇩🇿 Darija</button>
-        <button style="background:var(--text); color:white; border:none; padding:8px 12px; border-radius:20px; font-size:10px; cursor:pointer;" onclick="toggleAdmin()">⚙️ Atelier</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 8px;">
+        <button style="width:35px; height:35px; background:var(--text); color:white; border:none; border-radius:50%; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;" onclick="toggleTheme()" title="Mode">🌓</button>
+        <button id="lang-toggle-btn" style="flex:0.6; background:var(--accent); color:var(--text); border:none; padding:8px; border-radius:20px; font-size:11px; cursor:pointer; font-weight:bold;" onclick="toggleLang()">🇩🇿 Darija</button>
+        <button style="width:35px; height:35px; background:var(--text); color:white; border:none; border-radius:50%; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;" onclick="toggleAdmin()" title="Atelier">⚙️</button>
     </div>
 
     <div class="header-title">
         <h1 id="shop-name-display">Boutique</h1>
-        <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;"></p>
+        <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">CAKE DESIGN DE LUXE</p>
     </div>
 
     <div id="admin-panel" class="admin-panel">
         <p style="text-align:center; font-weight:800; font-size:12px;">🛠️ CONFIGURATION</p>
-        <div style="font-size:11px;">Nom : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
+        <div style="font-size:11px;">Nom Boutique : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
         <div style="font-size:11px;">WhatsApp : <input type="text" id="shop_wa_input" oninput="updateConfig()"></div>
         <div style="font-size:11px;">Insta : <input type="text" id="shop_insta_input" oninput="updateConfig()"></div>
         <div style="display:flex; justify-content:space-between; gap:10px;">
@@ -91,12 +93,13 @@
             <div style="width:50%; font-size:11px;">Extra Etage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
         </div>
         <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">+ Nouvelle Catégorie</button>
-        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">🔗 Copier Lien Personnalisé</button>
+        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">🔗 Copier Lien (Nom seul)</button>
         <button onclick="toggleAdmin()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:15px; margin-top:10px; font-weight:bold;">Valider ✅</button>
     </div>
 
     <div class="section-box">
         <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-dim">📏 DIMENSIONS</span>
+        <div id="bubble-dim" class="info-bubble" title="">i</div>
         <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:15px;">
             <div style="flex:1;">
                 <small id="label-parts">Nbr Parts</small><br>
@@ -115,8 +118,9 @@
     <div id="dynamic-sections"></div>
 
     <div class="section-box">
-        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-note-client">✍️ NOTE PARTICULIÈRE</span><br>
-        <textarea id="client-note" rows="3" placeholder="Ex: Thème Spider-Man, couleurs..."></textarea>
+        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-note-client">✍️ NOTE PARTICULIÈRE</span>
+        <div id="bubble-note" class="info-bubble" title="">i</div><br>
+        <textarea id="client-note" rows="3" placeholder="..."></textarea>
     </div>
 
     <div class="footer-total">
@@ -133,50 +137,44 @@
 let isAdmin = false;
 const langMap = {
     fr: {
-        dim: "📏 DIMENSIONS", parts: "Nbr de Parts", etages: "Étages", date: "Date souhaitée",
+        btn: "🇩🇿 Darija", dim: "📏 DIMENSIONS", parts: "Nbr de Parts", etages: "Étages", date: "Date souhaitée",
         total: "TOTAL ESTIMÉ", wa: "Commander via WhatsApp", insta: "Commander via Instagram",
         unique: "CHOIX UNIQUE", multiple: "SÉLECTION LIBRE", noteLabel: "✍️ NOTE PARTICULIÈRE",
         perPart: "DA / part", perEtage: "+ DA / étage", note: "Note : Supplément calculé par part.",
-        copy: "Lien copié !", dateErr: "Veuillez choisir une date."
+        copy: "Lien copié !", dateErr: "Veuillez choisir une date.",
+        infoDim: "Choisissez le nombre de parts et d'étages", infoNote: "Précisez le thème ou les couleurs",
+        placeNote: "Ex: Thème Spider-Man..."
     },
     ar: {
-        dim: "📏 القياسات", parts: "عدد الأشخاص", etages: "عدد الطوابق", date: "تاريخ المناسبة",
+        btn: "🇫🇷 Français", dim: "📏 القياسات", parts: "عدد الأشخاص", etages: "عدد الطوابق", date: "تاريخ المناسبة",
         total: "السعر الإجمالي", wa: "اطلب عبر واتساب", insta: "اطلب عبر إنستغرام",
         unique: "اختيار واحد فقط", multiple: "إختيارات متعددة", noteLabel: "✍️ ملاحظة خاصة",
         perPart: "دج / للشخص", perEtage: "+ دج / للطابق", note: "ملاحظة: الإضافة تحسب للشخص",
-        copy: "تم نسخ الرابط !", dateErr: "اختر التاريخ أولاً"
+        copy: "تم نسخ الرابط !", dateErr: "اختر التاريخ أولاً",
+        infoDim: "اختر عدد الأشخاص و عدد الطوابق", infoNote: "اكتب تفاصيل عن الثيم أو الألوان",
+        placeNote: "مثال: ثيم سبايدرمان..."
     }
 };
 
-let database = JSON.parse(localStorage.getItem('kassa_cake_v5')) || {
+let database = JSON.parse(localStorage.getItem('kassa_cake_v9')) || {
     sections: [
-        {title: "Forme", isMultiple: false, items: [{n: "Rond", p: 0, s: true}, {n: "Carré", p: 50, s: false}]},
-        {title: "Goût", isMultiple: false, items: [{n: "Vanille", p: 0, s: true}, {n: "Choco", p: 20, s: false}]}
+        {title: "Type d'Événement", isMultiple: false, info: "Mariage, Anniversaire...", items: [{n: "Anniversaire", p: 0, s: true}, {n: "Mariage", p: 150, s: false}, {n: "Fiançailles", p: 100, s: false}]},
+        {title: "Forme du Moule", isMultiple: false, info: "Rond, Carré...", items: [{n: "Rond Classique", p: 0, s: true}, {n: "Carré", p: 50, s: false}, {n: "Cœur", p: 100, s: false}]},
+        {title: "Base Génoise", isMultiple: false, info: "Le goût du biscuit", items: [{n: "Vanille", p: 0, s: true}, {n: "Chocolat", p: 20, s: false}, {n: "Red Velvet", p: 50, s: false}]},
+        {title: "Fourrage intérieur", isMultiple: false, info: "Garniture intérieure", items: [{n: "Ganache", p: 0, s: true}, {n: "Kinder", p: 60, s: false}, {n: "Fruits Rouges", p: 40, s: false}]}
     ],
-    config: { shopName: "MA BOUTIQUE", base: 300, etage: 1000, whatsapp: "213", instagram: "", lang: "fr" }
+    config: { shopName: "MON ATELIER", base: 300, etage: 1000, whatsapp: "", instagram: "", lang: "fr" }
 };
 
 function checkURLParameters() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('nom')) database.config.shopName = params.get('nom').replace(/_/g, ' ');
-    if (params.has('wa')) database.config.whatsapp = params.get('wa');
-    if (params.has('insta')) database.config.instagram = params.get('insta');
-    if (params.has('base')) database.config.base = parseInt(params.get('base'));
-    if (params.has('etage')) database.config.etage = parseInt(params.get('etage'));
-}
-
-function cleanURL() {
-    if (window.location.search) {
-        const params = new URLSearchParams(window.location.search);
-        const shop = params.get('nom') || "";
-        const cleanPath = window.location.pathname + (shop ? `?nom=${shop}` : "");
-        window.history.replaceState({}, document.title, cleanPath);
-    }
 }
 
 function render() {
     const lang = database.config.lang;
     document.body.dataset.lang = lang;
+    document.getElementById('lang-toggle-btn').innerText = langMap[lang].btn;
     document.getElementById('label-dim').innerText = langMap[lang].dim;
     document.getElementById('label-parts').innerText = langMap[lang].parts;
     document.getElementById('label-etages').innerText = langMap[lang].etages;
@@ -185,6 +183,10 @@ function render() {
     document.getElementById('btn-wa-text').innerText = langMap[lang].wa;
     document.getElementById('btn-insta-text').innerText = langMap[lang].insta;
     document.getElementById('label-note-client').innerText = langMap[lang].noteLabel;
+    document.getElementById('client-note').placeholder = langMap[lang].placeNote;
+    
+    document.getElementById('bubble-dim').title = langMap[lang].infoDim;
+    document.getElementById('bubble-note').title = langMap[lang].infoNote;
     
     document.getElementById('price-parts-info').innerText = `${database.config.base} ${langMap[lang].perPart}`;
     document.getElementById('price-etages-info').innerText = `${database.config.etage} ${langMap[lang].perEtage}`;
@@ -193,19 +195,27 @@ function render() {
     const container = document.getElementById('dynamic-sections');
     container.innerHTML = '';
     database.sections.forEach((sec, sIdx) => {
-        let html = `<div class="section-box"><div style="display:flex; justify-content:space-between;">
-            <div><span style="font-weight:700; color:var(--accent);">${sec.title}</span><br>
-            <span class="badge-mode" onclick="${isAdmin ? `toggleCategoryMode(${sIdx})` : ''}" style="${isAdmin?'cursor:pointer;border:1px solid var(--accent)':''}">
-                ${sec.isMultiple ? langMap[lang].multiple : langMap[lang].unique} ${isAdmin?'🔄':''}
-            </span></div>
-            ${isAdmin ? `<button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; font-size:18px;">×</button>` : ''}
-        </div>`;
+        let html = `<div class="section-box">
+            <div style="display:flex; justify-content:space-between;">
+                <div>
+                    <span style="font-weight:700; color:var(--accent);">${sec.title}</span>
+                    <div class="info-bubble" title="${sec.info || ''}">i</div><br>
+                    <span class="badge-mode" onclick="${isAdmin ? `toggleCategoryMode(${sIdx})` : ''}" style="${isAdmin?'cursor:pointer;border:1px solid var(--accent)':''}">
+                        ${sec.isMultiple ? langMap[lang].multiple : langMap[lang].unique} ${isAdmin?'🔄':''}
+                    </span>
+                </div>
+                ${isAdmin ? `<button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; font-size:18px;">×</button>` : ''}
+            </div>`;
         sec.items.forEach((item, iIdx) => {
             html += `<div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
-                <span>${item.n}</span><span>+${item.p} DA</span>
+                <span>${item.n}</span>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span>+${item.p} DA</span>
+                    ${isAdmin ? `<div class="admin-actions" onclick="event.stopPropagation()"><span class="btn-edit" onclick="editItem(${sIdx}, ${iIdx})">✏️</span><span class="btn-edit" onclick="deleteItem(${sIdx}, ${iIdx})">🗑️</span></div>` : ''}
+                </div>
             </div>`;
         });
-        if(isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); font-size:10px; margin-top:5px;">+ Option</button>`;
+        if(isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); font-size:10px; margin-top:5px; cursor:pointer;">+ Ajouter</button>`;
         html += `<p style="font-size:8px; opacity:0.5; text-align:center; margin-top:10px;">${langMap[lang].note}</p></div>`;
         container.innerHTML += html;
     });
@@ -236,64 +246,28 @@ function getMsg() {
         if(sel.length) m += `🔹 *${sec.title}*: ${sel.join(', ')}\n`;
     });
     const note = document.getElementById('client-note').value;
-    if(note) m += `\n📝 *Note client*: ${note}\n`;
+    if(note) m += `\n📝 *Note*: ${note}\n`;
     m += `\n💰 *TOTAL: ${document.getElementById('total-display').innerText} DA*`;
     return m;
 }
 
-function sendWA() { 
-    const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr);
-    window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(m)}`); 
-}
-
-function sendInsta() {
-    const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr);
-    navigator.clipboard.writeText(m).then(() => {
-        alert(langMap[database.config.lang].copy);
-        window.open(`https://www.instagram.com/${database.config.instagram.replace('@','')}/`);
-    });
-}
-
-function toggleAdmin() {
-    if (!isAdmin) { if(prompt("Code:") === "1234") { isAdmin = true; document.getElementById('admin-panel').style.display = 'block'; syncAdmin(); } }
-    else { isAdmin = false; document.getElementById('admin-panel').style.display = 'none'; }
-    render();
-}
-
-function syncAdmin() {
-    document.getElementById('base_p').value = database.config.base;
-    document.getElementById('etage_p').value = database.config.etage;
-    document.getElementById('shop_n_input').value = database.config.shopName;
-    document.getElementById('shop_wa_input').value = database.config.whatsapp;
-    document.getElementById('shop_insta_input').value = database.config.instagram;
-}
-
-function updateConfig() {
-    database.config.shopName = document.getElementById('shop_n_input').value;
-    database.config.base = parseInt(document.getElementById('base_p').value) || 0;
-    database.config.etage = parseInt(document.getElementById('etage_p').value) || 0;
-    database.config.whatsapp = document.getElementById('shop_wa_input').value;
-    database.config.instagram = document.getElementById('shop_insta_input').value;
-    save(); calculate();
-}
-
-function copyClientLink() {
-    const url = window.location.href.split('?')[0];
-    const nom = database.config.shopName.replace(/\s/g, '_');
-    const link = `${url}?nom=${nom}&wa=${database.config.whatsapp}&insta=${database.config.instagram}&base=${database.config.base}&etage=${database.config.etage}`;
-    navigator.clipboard.writeText(link).then(() => alert("Lien Perso Copié !"));
-}
-
+function sendWA() { const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr); window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(m)}`); }
+function sendInsta() { const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr); navigator.clipboard.writeText(m).then(() => { alert(langMap[database.config.lang].copy); window.open(`https://www.instagram.com/${database.config.instagram.replace('@','')}/`); }); }
+function toggleAdmin() { if (!isAdmin) { if(prompt("Code Atelier:") === "1234") { isAdmin = true; document.getElementById('admin-panel').style.display = 'block'; syncAdmin(); } } else { isAdmin = false; document.getElementById('admin-panel').style.display = 'none'; } render(); }
+function syncAdmin() { document.getElementById('base_p').value = database.config.base; document.getElementById('etage_p').value = database.config.etage; document.getElementById('shop_n_input').value = database.config.shopName; document.getElementById('shop_wa_input').value = database.config.whatsapp; document.getElementById('shop_insta_input').value = database.config.instagram; }
+function updateConfig() { database.config.shopName = document.getElementById('shop_n_input').value; database.config.base = parseInt(document.getElementById('base_p').value) || 0; database.config.etage = parseInt(document.getElementById('etage_p').value) || 0; database.config.whatsapp = document.getElementById('shop_wa_input').value; database.config.instagram = document.getElementById('shop_insta_input').value; save(); calculate(); }
+function copyClientLink() { const url = window.location.href.split('?')[0]; const nom = database.config.shopName.replace(/\s/g, '_'); navigator.clipboard.writeText(`${url}?nom=${nom}`).then(() => alert("Lien Copié !")); }
 function toggleCategoryMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
 function deleteCategory(idx) { if(confirm("Supprimer?")) { database.sections.splice(idx, 1); save(); render(); } }
-function addItem(idx) { const n = prompt("Option:"); const p = prompt("Prix:"); if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } }
-function addNewCategory() { const t = prompt("Titre:"); if(t) { database.sections.push({title: t, isMultiple: false, items: []}); save(); render(); } }
-function save() { localStorage.setItem('kassa_cake_v5', JSON.stringify(database)); }
+function addItem(idx) { const n = prompt("Nom:"); const p = prompt("Prix:"); if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } }
+function editItem(sIdx, iIdx) { const item = database.sections[sIdx].items[iIdx]; const newN = prompt("Nom:", item.n); const newP = prompt("Prix:", item.p); if(newN !== null) { item.n = newN; item.p = parseInt(newP) || 0; save(); render(); } }
+function deleteItem(sIdx, iIdx) { if(confirm("Supprimer?")) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); } }
+function addNewCategory() { const t = prompt("Titre:"); const i = prompt("Info:"); if(t) { database.sections.push({title: t, info: i, isMultiple: false, items: []}); save(); render(); } }
+function save() { localStorage.setItem('kassa_cake_v9', JSON.stringify(database)); }
 function toggleTheme() { document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; }
 function toggleLang() { database.config.lang = database.config.lang === "fr" ? "ar" : "fr"; render(); }
 function closeWelcome() { document.getElementById('welcome-modal').style.display = 'none'; }
-
-window.onload = () => { checkURLParameters(); render(); setTimeout(cleanURL, 1000); };
+window.onload = () => { checkURLParameters(); render(); };
 </script>
 </body>
 </html>
