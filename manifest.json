@@ -1,0 +1,15 @@
+{
+  "name": "CakeProDz",
+  "short_name": "CakePro",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fff1f5",
+  "theme_color": "#5e1c3e",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/992/992717.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
