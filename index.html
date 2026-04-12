@@ -3,271 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title> RAOUF STUDIO | Cake Devis Pro </title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>CakeProDz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg: #fff5f8; --card: #ffffff; --text: #4a0e2e; --accent: #d4a373; 
-            --info: #ffb703; --border: #fceef2; 
+            --bg: #fff1f5;       
+            --card: #ffffff;     
+            --text: #5e1c3e;     
+            --accent: #5e1c3e;   
+            --border: #f8e1e7;   
+            --gold-accent: #c5a059; 
+            --input-text: #5e1c3e;
         }
+
         [data-theme="dark"] {
-            --bg: #1a0510; --card: #2d0a1c; --text: #fdf2f7; --accent: #e9c46a; 
-            --info: #fb8500; --border: #4a0e2e;
+            --bg: #2a0a1a;       
+            --card: #3a1a2a;     
+            --text: #fff1f5;     
+            --accent: #ffb6c1;   
+            --border: #5e1c3e;   
+            --gold-accent: #ffcc66; 
+            --input-text: #ffffff;
         }
 
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; display: flex; justify-content: center; transition: 0.4s; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(74, 14, 46, 0.98); z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; color: white; padding: 30px; box-sizing: border-box; transition: 0.5s; }
-        .welcome-content { max-width: 400px; animation: fadeInUp 0.8s ease; }
-        .welcome-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 15px; color: var(--accent); }
-        .btn-start { background: var(--accent); color: var(--text); border: none; padding: 12px 35px; border-radius: 25px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .app-container { width: 100%; max-width: 500px; background: var(--card); padding: 25px; border-radius: 35px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); position: relative; border: 1px solid var(--border); margin-bottom: 50px; }
-        .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px double var(--border); padding-bottom: 15px; }
-        .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 0; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; }
-        
-        .section-box { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 25px; margin-bottom: 20px; position: relative;}
-        .info-bubble { display: inline-block; width: 14px; height: 14px; background: var(--accent); color: white; border-radius: 50%; font-size: 10px; text-align: center; line-height: 14px; cursor: help; margin-left: 5px; }
-
-        .badge-mode { 
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 11px; padding: 3px 10px; border-radius: 20px; 
-            background: rgba(212, 163, 115, 0.1); color: var(--accent); 
-            margin-top: 5px; display: inline-block; font-weight: 700;
-            border: 0.5px solid rgba(212, 163, 115, 0.3);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text); 
+            margin: 0; 
+            padding: 10px; 
+            display: flex; 
+            justify-content: center; 
+            transition: 0.3s;
+            min-height: 100vh;
         }
 
-        .unit-price-info { font-size: 10px; color: var(--accent); font-weight: 600; margin-top: 4px; display: block; }
-        .option-card { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; background: var(--bg); transition: 0.3s; border: 1px solid transparent; }
-        .option-card.selected { background: var(--text); color: var(--card); border-color: var(--accent); transform: scale(1.02); }
+        .app { width: 100%; max-width: 480px; position: relative; z-index: 1; }
         
-        .admin-actions { display: flex; gap: 5px; }
-        .btn-edit { background: none; border: none; font-size: 12px; cursor: pointer; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin: 0; color: var(--text); font-weight: 700; text-transform: uppercase; }
+        .darja { font-size: 11px; color: var(--accent); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 5px; display: block;}
 
-        .footer-total { margin-top: 30px; padding: 30px; background: var(--text); border-radius: 30px; text-align: center; color: var(--card); }
-        .total-val { font-family: 'Cormorant Garamond', serif; font-size: 45px; margin: 10px 0; color: var(--accent); }
-        
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
-        .btn-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-        
-        input, textarea { background: transparent; color: var(--text); border: none; border-bottom: 1px solid var(--border); width: 100%; padding: 8px; font-family: 'Montserrat', sans-serif; box-sizing: border-box; }
-        textarea { border: 1px solid var(--border); border-radius: 15px; margin-top: 10px; resize: none; font-size: 13px; }
+        .section { background: var(--card); border: 1px solid var(--border); padding: 22px; border-radius: 25px; margin-bottom: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
+        .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: 1.5px; margin-bottom: 18px; display: block; }
 
-        .admin-panel { display: none; margin-bottom: 20px; padding: 20px; border: 2px dashed var(--accent); border-radius: 20px; background: #fffdf5; color: #4a0e2e; }
-        .signature { text-align: center; margin-top: 30px; padding-bottom: 20px; font-size: 10px; opacity: 0.7; }
+        .card { padding: 20px; border-radius: 18px; background: rgba(94, 28, 62, 0.03); margin-bottom: 12px; cursor: pointer; border: 1px solid var(--border); transition: 0.2s; color: var(--text); }
+        .card.selected { border: 2px solid var(--accent); background: var(--accent); color: #ffffff !important; transform: scale(1.02); }
+        .card.selected * { color: #ffffff !important; } 
         
-        [data-lang="ar"] { direction: rtl; text-align: right; }
-        [data-lang="ar"] input, [data-lang="ar"] textarea { text-align: right; }
+        .price-badge { background: var(--gold-accent); color: #1a040a !important; padding: 5px 10px; border-radius: 10px; font-size: 11px; font-weight: 800; }
+
+        .total-box { background: var(--accent); color: var(--gold-accent) !important; padding: 30px; border-radius: 35px; text-align: center; margin-top: 25px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
+        .total-box span, .total-box small { color: var(--gold-accent) !important; }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            background: var(--card); 
+            color: var(--input-text); 
+            box-sizing: border-box; 
+            font-family: inherit; 
+            margin-top: 8px; 
+            outline: none; 
+        }
+
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 16px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 12px; margin-top: 10px; transition: 0.3s; display: block; text-decoration: none; text-align: center; }
+        .btn-wa { background: #25D366; color: white; }
+        .btn-ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: white; }
+        .btn-top { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 10px 18px; border-radius: 14px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+        .admin-panel { display: none; background: var(--card); padding: 20px; border-radius: 25px; border: 2px solid var(--accent); margin-bottom: 20px; }
+        .admin-block { background: rgba(94, 28, 62, 0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border: 1px solid var(--border); }
+        .btn-del { background: #ff4d4d; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 10px; margin-top: 10px; width: 100%; }
+
+        .note-chef { border-left: 4px solid var(--accent); padding: 15px; font-size: 13px; background: var(--card); margin-bottom: 20px; font-style: italic; border-radius: 0 15px 15px 0; color: var(--text); opacity: 0.9; }
     </style>
 </head>
-<body data-theme="light" data-lang="fr">
+<body>
 
-<div id="welcome-modal" class="welcome-overlay">
-    <div class="welcome-content">
-        <h2 id="w-title">RAOUF STUDIO</h2>
-        <p id="w-p">Composez votre gâteau sur-mesure et visualisez votre devis instantanément.</p>
-        <button class="btn-start" onclick="closeWelcome()">Commencer</button>
-    </div>
-</div>
-
-<div class="app-container">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 8px;">
-        <button style="width:35px; height:35px; background:var(--text); color:white; border:none; border-radius:50%; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;" onclick="toggleTheme()" title="Mode">🌓</button>
-        <button id="lang-toggle-btn" style="flex:0.6; background:var(--accent); color:var(--text); border:none; padding:8px; border-radius:20px; font-size:11px; cursor:pointer; font-weight:bold;" onclick="toggleLang()">🇩🇿 Darija</button>
-        <button style="width:35px; height:35px; background:var(--text); color:white; border:none; border-radius:50%; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;" onclick="toggleAdmin()" title="Atelier">⚙️</button>
+<div class="app">
+    <div style="display:flex; justify-content: space-between; margin-bottom: 25px;">
+        <button class="btn-top" onclick="toggleTheme()">🌓 </button>
+        <button class="btn-top" onclick="toggleAdmin()">⚙️ </button>
     </div>
 
-    <div class="header-title">
-        <h1 id="shop-name-display">Boutique</h1>
-        <p id="shop-tagline" style="font-size: 9px; opacity: 0.6; letter-spacing: 2px;">CAKE DESIGN DE LUXE</p>
+    <div id="admin" class="admin-panel">
+        <h3 style="margin:0 0 15px 0; color:var(--text)">Cake Devis</h3>
+        <input type="text" id="a_name" placeholder="Nom Boutique" oninput="upd()">
+        <input type="text" id="a_wa" placeholder="WhatsApp (213...)" oninput="upd()">
+        <input type="text" id="a_ig" placeholder="Instagram (sans @)" oninput="upd()">
+        <input type="number" id="a_base" placeholder="Prix base/part" oninput="upd()">
+        <textarea id="a_msg" placeholder="Message d'accueil" oninput="upd()"></textarea>
+        <textarea id="a_rem" placeholder="Note bas de page" oninput="upd()"></textarea>
+
+        <p class="section-title" style="margin-top:20px">Mes Saveurs</p>
+        <div id="adm_flavors"></div>
+        <button class="btn" style="background:var(--accent); color:white" onclick="add('f')">+ Ajouter une Saveur</button>
+
+        <p class="section-title" style="margin-top:20px">Mes Suppléments</p>
+        <div id="adm_extras"></div>
+        <button class="btn" style="background:var(--accent); color:white" onclick="add('e')">+ Ajouter un Supplément</button>
+
+        <button class="btn" style="background:var(--gold-accent); color:#1a040a; margin-top:30px" onclick="copyLink()">🔗 CRÉER LE LIEN CLIENT</button>
     </div>
 
-    <div id="admin-panel" class="admin-panel">
-        <p style="text-align:center; font-weight:800; font-size:12px;">🛠️ CONFIGURATION</p>
-        <div style="font-size:11px;">Nom Boutique : <input type="text" id="shop_n_input" oninput="updateConfig()"></div>
-        <div style="font-size:11px;">WhatsApp : <input type="text" id="shop_wa_input" oninput="updateConfig()"></div>
-        <div style="font-size:11px;">Insta : <input type="text" id="shop_insta_input" oninput="updateConfig()"></div>
-        <div style="display:flex; justify-content:space-between; gap:10px;">
-            <div style="width:50%; font-size:11px;">Base/Part : <input type="number" id="base_p" oninput="updateConfig()"></div>
-            <div style="width:50%; font-size:11px;">Extra Etage : <input type="number" id="etage_p" oninput="updateConfig()"></div>
+    <div class="header">
+        <h1 id="v_name">...</h1>
+        <span class="darja">Cake Pro</span>
+        <p id="v_msg" style="font-size:13px; opacity:0.8; margin-top:15px; padding: 0 20px;"></p>
+    </div>
+
+    <div class="section">
+        <span class="section-title">📏 Dimensions</span>
+        <div style="display:flex; gap:12px">
+            <div style="flex:1"><small>Parts</small><input type="number" id="parts" value="10" oninput="calc()"></div>
+            <div style="flex:1"><small>Étages</small><input type="number" id="etages" value="1" oninput="calc()"></div>
         </div>
-        <button onclick="addNewCategory()" style="width:100%; background:var(--accent); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">+ Nouvelle Catégorie</button>
-        <button onclick="copyClientLink()" style="width:100%; background:var(--text); color:white; border:none; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer;">🔗 Copier Lien (Nom seul)</button>
-        <button onclick="toggleAdmin()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:15px; margin-top:10px; font-weight:bold;">Valider ✅</button>
+        <input type="date" id="date" style="margin-top:12px">
     </div>
 
-    <div class="section-box">
-        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-dim">📏 DIMENSIONS</span>
-        <div id="bubble-dim" class="info-bubble" title="">i</div>
-        <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:15px;">
-            <div style="flex:1;">
-                <small id="label-parts">Nbr Parts</small><br>
-                <input type="number" id="parts" value="10" oninput="calculate()">
-                <span class="unit-price-info" id="price-parts-info"></span>
-            </div>
-            <div style="flex:1;">
-                <small id="label-etages">Étages</small><br>
-                <input type="number" id="etages" value="1" oninput="calculate()">
-                <span class="unit-price-info" id="price-etages-info"></span>
-            </div>
-            <div style="width:100%;"><small id="label-date">Date</small><input type="date" id="event-date"></div>
-        </div>
+    <div class="section">
+        <span class="section-title">👑 Univers de Saveurs</span>
+        <div id="list_f"></div>
     </div>
 
-    <div id="dynamic-sections"></div>
-
-    <div class="section-box">
-        <span style="font-size:12px; font-weight:700; color:var(--accent);" id="label-note-client">✍️ NOTE PARTICULIÈRE</span>
-        <div id="bubble-note" class="info-bubble" title="">i</div><br>
-        <textarea id="client-note" rows="3" placeholder="..."></textarea>
+    <div class="section">
+        <span class="section-title">✨ Design & Extras</span>
+        <div id="list_e"></div>
     </div>
 
-    <div class="footer-total">
-        <div id="label-total" style="font-size: 10px; opacity: 0.7;">TOTAL ESTIMÉ</div>
-        <div class="total-val"><span id="total-display">0</span> DA</div>
-        <button class="btn-wa" onclick="sendWA()" id="btn-wa-text">WhatsApp</button>
-        <button class="btn-insta" onclick="sendInsta()" id="btn-insta-text">Instagram</button>
+    <div id="v_rem" class="note-chef"></div>
+
+    <div class="section">
+        <span class="section-title">📝 Note Personnalisée</span>
+        <textarea id="note" placeholder="Thème, prénom, couleurs, détails particuliers..."></textarea>
     </div>
 
-    <div class="signature">DESIGNED BY <a href="#" style="color:var(--accent); text-decoration:none; font-weight:700;">RAOUF STUDIO</a></div>
+    <div class="total-box">
+        <small>ESTIMATION TOTALE</small>
+        <div style="font-size:42px; font-weight:800; margin:10px 0;"><span id="total">0</span> <small style="font-size:16px">DA</small></div>
+        <button class="btn btn-wa" onclick="send('wa')">Commander via WhatsApp</button>
+        <button class="btn btn-ig" onclick="send('ig')">Commander via Instagram</button>
+    </div>
+
+    <div style="text-align:center; margin-top:35px; font-size:10px; letter-spacing:3px; opacity:0.4; color:var(--text)">DESIGNED BY RAOUF STUDIO</div>
 </div>
 
 <script>
-let isAdmin = false;
-const langMap = {
-    fr: {
-        btn: "🇩🇿 Darija", dim: "📏 DIMENSIONS", parts: "Nbr de Parts", etages: "Étages", date: "Date souhaitée",
-        total: "TOTAL ESTIMÉ", wa: "Commander via WhatsApp", insta: "Commander via Instagram",
-        unique: "CHOIX UNIQUE", multiple: "SÉLECTION LIBRE", noteLabel: "✍️ NOTE PARTICULIÈRE",
-        perPart: "DA / part", perEtage: "+ DA / étage", note: "Note : Supplément calculé par part.",
-        copy: "Lien copié !", dateErr: "Veuillez choisir une date.",
-        infoDim: "Choisissez le nombre de parts et d'étages", infoNote: "Précisez le thème ou les couleurs",
-        placeNote: "Ex: Thème Spider-Man..."
-    },
-    ar: {
-        btn: "🇫🇷 Français", dim: "📏 القياسات", parts: "عدد الأشخاص", etages: "عدد الطوابق", date: "تاريخ المناسبة",
-        total: "السعر الإجمالي", wa: "اطلب عبر واتساب", insta: "اطلب عبر إنستغرام",
-        unique: "اختيار واحد فقط", multiple: "إختيارات متعددة", noteLabel: "✍️ ملاحظة خاصة",
-        perPart: "دج / للشخص", perEtage: "+ دج / للطابق", note: "ملاحظة: الإضافة تحسب للشخص",
-        copy: "تم نسخ الرابط !", dateErr: "اختر التاريخ أولاً",
-        infoDim: "اختر عدد الأشخاص و عدد الطوابق", infoNote: "اكتب تفاصيل عن الثيم أو الألوان",
-        placeNote: "مثال: ثيم سبايدرمان..."
+    let db = {
+        n: "MA BOUTIQUE", w: "213", i: "Ma_Boutique", b: 300, m: "Fait avec amour pour vos moments spéciaux.", r: "Tarifs sujets à modification selon le design.",
+        f: [
+            {n: "👑 Signature Pistache", d: "Crème pure pistache & éclats", p: 400, s: true},
+            {n: "🍫 Royal Chocolat", d: "Ganache 65% & praliné", p: 300, s: false}
+        ],
+        e: [
+            {n: "Fleurs Fraîches", p: 2000, s: false},
+            {n: "Feuilles d'Or", p: 900, s: false}
+        ]
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('data')) {
+        try { db = JSON.parse(atob(urlParams.get('data'))); } catch(e) { console.log("Lien erroné"); }
+    } else {
+        const saved = localStorage.getItem('cakepro_v3');
+        if(saved) db = JSON.parse(saved);
     }
-};
 
-let database = JSON.parse(localStorage.getItem('kassa_cake_v9')) || {
-    sections: [
-        {title: "Type d'Événement", isMultiple: false, info: "Mariage, Anniversaire...", items: [{n: "Anniversaire", p: 0, s: true}, {n: "Mariage", p: 150, s: false}, {n: "Fiançailles", p: 100, s: false}]},
-        {title: "Forme du Moule", isMultiple: false, info: "Rond, Carré...", items: [{n: "Rond Classique", p: 0, s: true}, {n: "Carré", p: 50, s: false}, {n: "Cœur", p: 100, s: false}]},
-        {title: "Base Génoise", isMultiple: false, info: "Le goût du biscuit", items: [{n: "Vanille", p: 0, s: true}, {n: "Chocolat", p: 20, s: false}, {n: "Red Velvet", p: 50, s: false}]},
-        {title: "Fourrage intérieur", isMultiple: false, info: "Garniture intérieure", items: [{n: "Ganache", p: 0, s: true}, {n: "Kinder", p: 60, s: false}, {n: "Fruits Rouges", p: 40, s: false}]}
-    ],
-    config: { shopName: "MON ATELIER", base: 300, etage: 1000, whatsapp: "", instagram: "", lang: "fr" }
-};
+    // Fonction de rendu principal (ne pas appeler pendant l'input admin)
+    function renderApp() {
+        document.getElementById('v_name').innerText = db.n;
+        document.getElementById('v_msg').innerText = db.m;
+        document.getElementById('v_rem').innerText = db.r;
 
-function checkURLParameters() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('nom')) database.config.shopName = params.get('nom').replace(/_/g, ' ');
-}
+        const lf = document.getElementById('list_f'); lf.innerHTML = '';
+        db.f.forEach((x, i) => {
+            lf.innerHTML += `<div class="card ${x.s?'selected':''}" onclick="sel('f',${i})">
+                <div style="display:flex; justify-content:space-between; align-items:center;"><b>${x.n}</b><span class="price-badge">${(parseInt(db.b)+parseInt(x.p))} DA/P</span></div>
+                ${x.d ? `<div style="font-size:11px; opacity:0.8; margin-top:8px;">${x.d}</div>` : ''}</div>`;
+        });
 
-function render() {
-    const lang = database.config.lang;
-    document.body.dataset.lang = lang;
-    document.getElementById('lang-toggle-btn').innerText = langMap[lang].btn;
-    document.getElementById('label-dim').innerText = langMap[lang].dim;
-    document.getElementById('label-parts').innerText = langMap[lang].parts;
-    document.getElementById('label-etages').innerText = langMap[lang].etages;
-    document.getElementById('label-date').innerText = langMap[lang].date;
-    document.getElementById('label-total').innerText = langMap[lang].total;
-    document.getElementById('btn-wa-text').innerText = langMap[lang].wa;
-    document.getElementById('btn-insta-text').innerText = langMap[lang].insta;
-    document.getElementById('label-note-client').innerText = langMap[lang].noteLabel;
-    document.getElementById('client-note').placeholder = langMap[lang].placeNote;
-    
-    document.getElementById('bubble-dim').title = langMap[lang].infoDim;
-    document.getElementById('bubble-note').title = langMap[lang].infoNote;
-    
-    document.getElementById('price-parts-info').innerText = `${database.config.base} ${langMap[lang].perPart}`;
-    document.getElementById('price-etages-info').innerText = `${database.config.etage} ${langMap[lang].perEtage}`;
-    document.getElementById('shop-name-display').innerText = database.config.shopName;
+        const le = document.getElementById('list_e'); le.innerHTML = '';
+        db.e.forEach((x, i) => {
+            le.innerHTML += `<div class="card ${x.s?'selected':''}" onclick="sel('e',${i})">
+                <div style="display:flex; justify-content:space-between"><span>${x.n} ${x.s?'✓':''}</span><b>+${x.p} DA</b></div></div>`;
+        });
+        calc();
+    }
 
-    const container = document.getElementById('dynamic-sections');
-    container.innerHTML = '';
-    database.sections.forEach((sec, sIdx) => {
-        let html = `<div class="section-box">
-            <div style="display:flex; justify-content:space-between;">
-                <div>
-                    <span style="font-weight:700; color:var(--accent);">${sec.title}</span>
-                    <div class="info-bubble" title="${sec.info || ''}">i</div><br>
-                    <span class="badge-mode" onclick="${isAdmin ? `toggleCategoryMode(${sIdx})` : ''}" style="${isAdmin?'cursor:pointer;border:1px solid var(--accent)':''}">
-                        ${sec.isMultiple ? langMap[lang].multiple : langMap[lang].unique} ${isAdmin?'🔄':''}
-                    </span>
-                </div>
-                ${isAdmin ? `<button onclick="deleteCategory(${sIdx})" style="color:red; background:none; border:none; font-size:18px;">×</button>` : ''}
-            </div>`;
-        sec.items.forEach((item, iIdx) => {
-            html += `<div class="option-card ${item.s ? 'selected' : ''}" onclick="toggleItem(${sIdx}, ${iIdx})">
-                <span>${item.n}</span>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <span>+${item.p} DA</span>
-                    ${isAdmin ? `<div class="admin-actions" onclick="event.stopPropagation()"><span class="btn-edit" onclick="editItem(${sIdx}, ${iIdx})">✏️</span><span class="btn-edit" onclick="deleteItem(${sIdx}, ${iIdx})">🗑️</span></div>` : ''}
-                </div>
+    // Rendu spécifique de l'admin pour éviter les bugs de clavier
+    function renderAdmin() {
+        document.getElementById('a_name').value = db.n;
+        document.getElementById('a_wa').value = db.w;
+        document.getElementById('a_ig').value = db.i;
+        document.getElementById('a_base').value = db.b;
+        document.getElementById('a_msg').value = db.m;
+        document.getElementById('a_rem').value = db.r;
+
+        const af = document.getElementById('adm_flavors'); af.innerHTML = '';
+        db.f.forEach((x, i) => {
+            af.innerHTML += `<div class="admin-block">
+                <input type="text" value="${x.n}" oninput="db.f[${i}].n=this.value; save(); renderApp()" placeholder="Nom">
+                <input type="text" value="${x.d}" oninput="db.f[${i}].d=this.value; save(); renderApp()" placeholder="Description">
+                <input type="number" value="${x.p}" oninput="db.f[${i}].p=this.value; save(); renderApp()" placeholder="Supplément">
+                <button class="btn-del" onclick="del('f',${i})">Supprimer Saveur</button>
             </div>`;
         });
-        if(isAdmin) html += `<button onclick="addItem(${sIdx})" style="width:100%; border:1px dashed var(--accent); background:none; color:var(--accent); font-size:10px; margin-top:5px; cursor:pointer;">+ Ajouter</button>`;
-        html += `<p style="font-size:8px; opacity:0.5; text-align:center; margin-top:10px;">${langMap[lang].note}</p></div>`;
-        container.innerHTML += html;
-    });
-    calculate();
-}
 
-function calculate() {
-    const p = Math.max(0, parseInt(document.getElementById('parts').value) || 0);
-    const e = Math.max(1, parseInt(document.getElementById('etages').value) || 1);
-    let pParPart = database.config.base;
-    database.sections.forEach(sec => sec.items.forEach(i => { if (i.s) pParPart += i.p; }));
-    let total = (p * pParPart) + ((e - 1) * database.config.etage);
-    document.getElementById('total-display').innerText = new Intl.NumberFormat('fr-FR').format(total);
-}
+        const ae = document.getElementById('adm_extras'); ae.innerHTML = '';
+        db.e.forEach((x, i) => {
+            ae.innerHTML += `<div class="admin-block">
+                <input type="text" value="${x.n}" oninput="db.e[${i}].n=this.value; save(); renderApp()" placeholder="Nom">
+                <input type="number" value="${x.p}" oninput="db.e[${i}].p=this.value; save(); renderApp()" placeholder="Prix fixe">
+                <button class="btn-del" onclick="del('e',${i})">Supprimer Extra</button>
+            </div>`;
+        });
+    }
 
-function toggleItem(sIdx, iIdx) {
-    const sec = database.sections[sIdx];
-    if (sec.isMultiple) sec.items[iIdx].s = !sec.items[iIdx].s;
-    else sec.items.forEach((item, idx) => item.s = (idx === iIdx));
-    render();
-}
+    function sel(t, i) { if(t==='f') db.f.forEach((x,idx)=>x.s=(idx===i)); else db.e[i].s=!db.e[i].s; save(); renderApp(); }
+    
+    function del(t, i) { db[t].splice(i,1); save(); renderApp(); renderAdmin(); }
+    
+    function add(t) { 
+        if(t==='f') db.f.push({n:"Nouvelle Saveur", d:"", p:0, s:false}); 
+        else db.e.push({n:"Nouvel Extra", p:0, s:false}); 
+        save(); renderApp(); renderAdmin(); 
+    }
 
-function getMsg() {
-    const d = document.getElementById('event-date').value; if(!d) return null;
-    let m = `*🍰 DEVIS ${database.config.shopName}*\n📅 Date: ${d}\n📏 ${document.getElementById('parts').value} parts / ${document.getElementById('etages').value} étage(s)\n\n`;
-    database.sections.forEach(sec => {
-        let sel = sec.items.filter(i => i.s).map(i => i.n);
-        if(sel.length) m += `🔹 *${sec.title}*: ${sel.join(', ')}\n`;
-    });
-    const note = document.getElementById('client-note').value;
-    if(note) m += `\n📝 *Note*: ${note}\n`;
-    m += `\n💰 *TOTAL: ${document.getElementById('total-display').innerText} DA*`;
-    return m;
-}
+    function upd() { 
+        db.n = document.getElementById('a_name').value; 
+        db.w = document.getElementById('a_wa').value; 
+        db.i = document.getElementById('a_ig').value.replace('@',''); 
+        db.b = document.getElementById('a_base').value; 
+        db.m = document.getElementById('a_msg').value; 
+        db.r = document.getElementById('a_rem').value; 
+        save(); 
+        document.getElementById('v_name').innerText = db.n;
+        document.getElementById('v_msg').innerText = db.m;
+        document.getElementById('v_rem').innerText = db.r;
+        calc();
+    }
 
-function sendWA() { const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr); window.open(`https://wa.me/${database.config.whatsapp}?text=${encodeURIComponent(m)}`); }
-function sendInsta() { const m = getMsg(); if(!m) return alert(langMap[database.config.lang].dateErr); navigator.clipboard.writeText(m).then(() => { alert(langMap[database.config.lang].copy); window.open(`https://www.instagram.com/${database.config.instagram.replace('@','')}/`); }); }
-function toggleAdmin() { if (!isAdmin) { if(prompt("Code Atelier:") === "1234") { isAdmin = true; document.getElementById('admin-panel').style.display = 'block'; syncAdmin(); } } else { isAdmin = false; document.getElementById('admin-panel').style.display = 'none'; } render(); }
-function syncAdmin() { document.getElementById('base_p').value = database.config.base; document.getElementById('etage_p').value = database.config.etage; document.getElementById('shop_n_input').value = database.config.shopName; document.getElementById('shop_wa_input').value = database.config.whatsapp; document.getElementById('shop_insta_input').value = database.config.instagram; }
-function updateConfig() { database.config.shopName = document.getElementById('shop_n_input').value; database.config.base = parseInt(document.getElementById('base_p').value) || 0; database.config.etage = parseInt(document.getElementById('etage_p').value) || 0; database.config.whatsapp = document.getElementById('shop_wa_input').value; database.config.instagram = document.getElementById('shop_insta_input').value; save(); calculate(); }
-function copyClientLink() { const url = window.location.href.split('?')[0]; const nom = database.config.shopName.replace(/\s/g, '_'); navigator.clipboard.writeText(`${url}?nom=${nom}`).then(() => alert("Lien Copié !")); }
-function toggleCategoryMode(idx) { database.sections[idx].isMultiple = !database.sections[idx].isMultiple; save(); render(); }
-function deleteCategory(idx) { if(confirm("Supprimer?")) { database.sections.splice(idx, 1); save(); render(); } }
-function addItem(idx) { const n = prompt("Nom:"); const p = prompt("Prix:"); if(n) { database.sections[idx].items.push({n, p: parseInt(p)||0, s: false}); save(); render(); } }
-function editItem(sIdx, iIdx) { const item = database.sections[sIdx].items[iIdx]; const newN = prompt("Nom:", item.n); const newP = prompt("Prix:", item.p); if(newN !== null) { item.n = newN; item.p = parseInt(newP) || 0; save(); render(); } }
-function deleteItem(sIdx, iIdx) { if(confirm("Supprimer?")) { database.sections[sIdx].items.splice(iIdx, 1); save(); render(); } }
-function addNewCategory() { const t = prompt("Titre:"); const i = prompt("Info:"); if(t) { database.sections.push({title: t, info: i, isMultiple: false, items: []}); save(); render(); } }
-function save() { localStorage.setItem('kassa_cake_v9', JSON.stringify(database)); }
-function toggleTheme() { document.body.dataset.theme = document.body.dataset.theme === "light" ? "dark" : "light"; }
-function toggleLang() { database.config.lang = database.config.lang === "fr" ? "ar" : "fr"; render(); }
-function closeWelcome() { document.getElementById('welcome-modal').style.display = 'none'; }
-window.onload = () => { checkURLParameters(); render(); };
+    function calc() {
+        const p = parseInt(document.getElementById('parts').value)||0;
+        const et = parseInt(document.getElementById('etages').value)||1;
+        const f = db.f.find(x=>x.s)||{p:0};
+        let t = p * (parseInt(db.b)+parseInt(f.p));
+        db.e.forEach(x=>{if(x.s) t+=parseInt(x.p)});
+        if(et>1) t+=(et-1)*1500;
+        document.getElementById('total').innerText = t.toLocaleString('fr-FR');
+    }
+
+    function send(mode) {
+        const d = document.getElementById('date').value; if(!d) return alert("Veuillez choisir une date !");
+        const f = db.f.find(x=>x.s);
+        const ex = db.e.filter(x=>x.s).map(x=>x.n);
+        const note = document.getElementById('note').value;
+        const txt = `*DEVIS ${db.n}*\n📅 Date: ${d}\n📏 ${document.getElementById('parts').value} parts (${document.getElementById('etages').value} ét.)\n👑 Saveur: ${f.n}\n✨ Extras: ${ex.join(', ') || 'Aucun'}\n📝 Note: ${note || 'Aucune'}\n💰 TOTAL: ${document.getElementById('total').innerText} DA`;
+        
+        if(mode==='wa') {
+            window.open(`https://wa.me/${db.w}?text=${encodeURIComponent(txt)}`);
+        } else {
+            navigator.clipboard.writeText(txt).then(() => {
+                alert("Devis copié ! Collez-le sur Instagram.");
+                window.open(`https://instagram.com/${db.i}/`);
+            });
+        }
+    }
+
+    function copyLink() {
+        const dataStr = btoa(unescape(encodeURIComponent(JSON.stringify(db))));
+        const link = window.location.origin + window.location.pathname + "?data=" + dataStr;
+        navigator.clipboard.writeText(link); alert("LIEN CLIENT PRÊT !");
+    }
+
+    function toggleAdmin() { 
+        const p = document.getElementById('admin');
+        if(p.style.display === 'block') {
+            p.style.display = 'none';
+        } else {
+            if(prompt("Code Atelier:") === "0228") {
+                renderAdmin();
+                p.style.display = 'block';
+            }
+        }
+    }
+    
+    function save() { localStorage.setItem('cakepro_v3', JSON.stringify(db)); }
+    function toggleTheme() { document.body.dataset.theme = (document.body.dataset.theme==='dark')?'':'dark'; }
+    
+    window.onload = renderApp;
 </script>
+
 </body>
 </html>
